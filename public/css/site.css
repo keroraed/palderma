@@ -1,0 +1,329 @@
+/* Palderma — Modern RTL Landing Styles & Hover Classes */
+
+@font-face {
+    font-family: 'Thmanyah';
+    src: url('../fonts/thmanyahsans-Light.otf') format('opentype');
+    font-weight: 300;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Thmanyah';
+    src: url('../fonts/thmanyahsans-Regular.otf') format('opentype');
+    font-weight: 400;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Thmanyah';
+    src: url('../fonts/thmanyahsans-Medium.otf') format('opentype');
+    font-weight: 500;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Thmanyah';
+    src: url('../fonts/thmanyahsans-Bold.otf') format('opentype');
+    font-weight: 700;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Thmanyah';
+    src: url('../fonts/thmanyahsans-Black.otf') format('opentype');
+    font-weight: 900;
+    font-display: swap;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Thmanyah', system-ui, -apple-system, sans-serif;
+    background: #faf6f4;
+    color: #2a1620;
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    color: #6c1830;
+    text-decoration: none;
+    transition: all .3s ease;
+}
+
+a:hover, a:focus-visible {
+    color: #96123c;
+    outline: none;
+}
+
+::selection {
+    background: #6c1830;
+    color: #fff;
+}
+
+@keyframes flt {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-14px); }
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(36px);
+    transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+[data-grid="services"] > div,
+[data-grid="doctors"] > div,
+[data-grid="certs"] > div,
+[data-grid="tests"] > div,
+[data-grid="pkgs"] > div {
+    transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+header.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(250, 246, 244, .85);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(108, 24, 48, .1);
+    transition: all .45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+header.site-header .header-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 14px 26px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    transition: all .45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+header.site-header .header-logo {
+    height: 52px;
+    transition: height .45s ease;
+}
+
+header.site-header.scrolled {
+    position: fixed;
+    top: 14px;
+    left: 0;
+    right: 0;
+    max-width: 1060px;
+    margin: 0 auto;
+    border-radius: 100px;
+    background: rgba(255, 255, 255, .82);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(108, 24, 48, .16);
+    box-shadow: 0 18px 40px -10px rgba(108, 24, 48, .22), 0 4px 14px rgba(0, 0, 0, .04);
+}
+
+header.site-header.scrolled .header-inner {
+    padding: 8px 24px;
+}
+
+header.site-header.scrolled .header-logo {
+    height: 40px;
+}
+
+input, textarea, select, button {
+    font-family: inherit;
+}
+
+input::placeholder, textarea::placeholder {
+    color: #b09aa1;
+}
+
+[data-nav="burger"] {
+    display: none;
+}
+
+/* State-based Mobile Menu Styling */
+header.site-header.menu-open {
+    border-radius: 0 0 22px 22px;
+}
+
+header.site-header.scrolled.menu-open {
+    border-radius: 24px 24px 0 0 !important;
+    overflow: visible;
+}
+
+/* Consolidated Specificity-Safe Hover and Focus State Classes */
+.btn-hover-burgundy {
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+.btn-hover-burgundy:hover,
+.btn-hover-burgundy:focus-visible {
+    background: #96123c !important;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(150, 18, 60, 0.3);
+}
+
+.btn-hover-light-pink {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.btn-hover-light-pink:hover,
+.btn-hover-light-pink:focus-visible {
+    background: #f7eef1 !important;
+    outline: none;
+}
+
+.btn-hover-white-overlay {
+    transition: background-color 0.3s ease;
+}
+.btn-hover-white-overlay:hover,
+.btn-hover-white-overlay:focus-visible {
+    background: rgba(255, 255, 255, 0.22) !important;
+    outline: none;
+}
+
+.btn-hover-white-glass {
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.btn-hover-white-glass:hover,
+.btn-hover-white-glass:focus-visible {
+    background: rgba(255, 255, 255, 0.35) !important;
+    outline: none;
+}
+
+.card-hover-lift {
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+}
+.card-hover-lift:hover,
+.card-hover-lift:focus-within {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px -15px rgba(108, 24, 48, 0.15) !important;
+    border-color: rgba(108, 24, 48, 0.25) !important;
+}
+
+.form-input-focus {
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.form-input-focus:focus,
+.form-input-focus:focus-visible {
+    border-color: #6c1830 !important;
+    outline: none !important;
+    box-shadow: 0 0 0 3px rgba(108, 24, 48, 0.18) !important;
+}
+
+.social-icon-hover {
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+.social-icon-hover:hover,
+.social-icon-hover:focus-visible {
+    background: #6c1830 !important;
+    color: #ffffff !important;
+    transform: translateY(-3px);
+    outline: none;
+}
+
+/* Card Component Extensions */
+.doctor-card, .service-card, .pkg-card, .cert-card, .testimonial-card {
+    background: #ffffff;
+    border: 1px solid rgba(108, 24, 48, 0.1);
+    border-radius: 24px;
+    overflow: hidden;
+}
+
+/* Media Query Breakpoints */
+@media(max-width:980px) {
+    [data-nav="desktop"] { display: none !important; }
+    [data-nav="burger"] { display: block !important; }
+    [data-col="about"], [data-col="spot"], [data-col="book"], [data-col="modal"] { grid-template-columns: 1fr !important; }
+    [data-col="spot"] [data-spot-img], [data-col="modal"] > div:first-child { min-height: 300px !important; }
+    [data-grid="doctors"], [data-grid="tests"], [data-grid="pkgs"], [data-grid="certs"] { grid-template-columns: repeat(2, 1fr) !important; }
+    [data-grid="services"] { grid-template-columns: repeat(2, 1fr) !important; }
+    [data-grid="footer"] { grid-template-columns: 1fr 1fr !important; }
+    [data-grid="pkgs"] > div { transform: none !important; }
+    
+    [data-menu-panel] {
+        background: rgba(250, 246, 244, .92) !important;
+        backdrop-filter: blur(20px) saturate(170%);
+        -webkit-backdrop-filter: blur(20px) saturate(170%);
+        border-top: 1px solid rgba(108, 24, 48, .08) !important;
+        border-radius: 0 0 22px 22px;
+        box-shadow: 0 26px 46px -22px rgba(108, 24, 48, .4);
+        padding: 10px 22px 20px !important;
+    }
+    [data-menu-panel] a { border-bottom-color: rgba(108, 24, 48, .06) !important; }
+}
+
+@media(max-width:900px) {
+    [data-hero-desktop] { display: none !important; }
+    [data-hero-mobile] { display: block !important; object-position: center bottom; }
+    [data-hero-grad] {
+        background: linear-gradient(180deg,
+            rgba(41,8,17,.5) 0%, rgba(41,8,17,.12) 20%, rgba(41,8,17,0) 38%,
+            rgba(41,8,17,0) 62%, rgba(41,8,17,.55) 100%) !important;
+    }
+    [data-hero-content] { justify-content: flex-start !important; padding-top: 0 !important; margin-top: -24px !important; }
+    [data-hero-prev], [data-hero-next] {
+        top: auto !important; bottom: 20px !important; transform: none !important;
+        width: 42px !important; height: 42px !important; font-size: 19px !important;
+    }
+    [data-hero-prev] { left: 18px !important; }
+    [data-hero-next] { right: 18px !important; }
+    [data-hero-dots] { bottom: 33px !important; }
+    [data-strip-wrap] { margin: 20px auto 30px !important; padding: 0 16px !important; }
+}
+
+@media(max-width:620px) {
+    #top { border-radius: 0 0 28px 28px !important; }
+    [data-grid="services"], [data-grid="tests"], [data-grid="pkgs"], [data-grid="certs"], [data-grid="footer"] { grid-template-columns: 1fr !important; }
+    
+    /* Doctors Mobile Snap Carousel */
+    [data-grid="doctors"] {
+        display: flex !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding-bottom: 14px !important;
+        gap: 14px !important;
+        margin: 0 -26px !important;
+        padding-left: 26px !important;
+        padding-right: 26px !important;
+    }
+    [data-grid="doctors"]::-webkit-scrollbar { display: none !important; }
+    [data-grid="doctors"] > div {
+        flex: 0 0 calc(50% - 7px) !important;
+        min-width: calc(50% - 7px) !important;
+        scroll-snap-align: start !important;
+        display: block !important;
+    }
+    [data-grid="doctors"] > div > div:last-child { padding: 14px 12px 16px !important; }
+    [data-grid="doctors"] h3 { font-size: 15.5px !important; }
+    [data-grid="doctors"] div { font-size: 12px !important; }
+    [data-grid="doctors"] button { padding: 8px 6px !important; font-size: 12.5px !important; }
+    
+    [data-form-row] { grid-template-columns: 1fr !important; }
+    section { padding-top: 64px !important; padding-bottom: 64px !important; }
+    [data-strip-wrap] { margin: 16px auto 24px !important; padding: 0 14px !important; }
+    [data-strip] { grid-template-columns: 1fr 1fr !important; gap: 20px 14px !important; padding: 24px 18px !important; border-radius: 24px !important; }
+    [data-strip] > div { border-right: 0 !important; }
+    [data-col="book"] > div { padding: 40px 26px !important; }
+    [data-col="spot"] > div:last-child { padding: 40px 28px !important; }
+    [data-col="modal"] > div:last-child { padding: 32px 24px !important; }
+    [data-about-badge] { left: 10px !important; right: 10px !important; bottom: -16px !important; max-width: none !important; }
+}
