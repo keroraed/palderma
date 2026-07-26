@@ -17,11 +17,18 @@ use App\Models\SpotlightBlock;
 use App\Models\Stat;
 use App\Models\Testimonial;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
 
 class LandingContentSeeder extends Seeder
 {
     public function run(): void
     {
+        // MySQL/MariaDB (unlike SQLite) refuses to truncate a table that's
+        // still referenced by a foreign key (e.g. spotlight_blocks.doctor_id
+        // -> doctors.id truncated in that order below). Disable checks for
+        // the duration of this idempotent re-seed.
+        Schema::disableForeignKeyConstraints();
+
         // 1. Sections
         $sections = [
             ['key' => 'hero', 'title' => 'الهيرو الرئيسي', 'is_visible' => true, 'sort_order' => 0],
@@ -326,5 +333,7 @@ class LandingContentSeeder extends Seeder
             'booking_privacy_note' => 'معلوماتك الشخصية محمية ومحافظ عليها بشرية بالكامل وفق نظام حماية البيانات الشخصية السعودي (PDPL).',
             'booking_success_message' => 'تم استلام طلب حجزك بنجاح! سيتواصل معك فريق الاستقبال خلال وقت قصير لتأكيد الموعد.',
         ]);
+
+        Schema::enableForeignKeyConstraints();
     }
 }
