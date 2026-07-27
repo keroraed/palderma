@@ -82,9 +82,13 @@ class ZohoSettings extends Page
                 throw new \Exception('لم يتم استلام Access Token من Zoho OAuth.');
             }
 
-            // Test authenticated API call to Leads metadata
+            // Test authenticated API call to Leads field metadata. Deliberately
+            // NOT /settings/modules/Leads: that endpoint needs a broader scope
+            // than this integration is granted (it only needs to create/read
+            // leads and read field definitions), so it would 401 even when
+            // the actual lead-creation flow works fine.
             $apiRes = Http::withToken($accessToken)
-                ->get(rtrim($apiDomain, '/') . '/crm/v8/settings/modules/Leads');
+                ->get(rtrim($apiDomain, '/') . '/crm/v8/settings/fields?module=Leads');
 
             if ($apiRes->successful()) {
                 Notification::make()
