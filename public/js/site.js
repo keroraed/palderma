@@ -287,6 +287,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Same-page click (service card is on the homepage already): set + smooth scroll, no reload.
     document.querySelectorAll('[data-book-service]').forEach(link => {
         link.addEventListener('click', (e) => {
+            // Card itself opens the details modal on click; this link must handle its
+            // own "go book this" action instead, not bubble up and open the modal too.
+            e.stopPropagation();
             const optionId = link.getAttribute('data-service-option-id');
             if (bookingSelect && optionId) {
                 e.preventDefault();
@@ -312,6 +315,87 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             document.getElementById('book')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 100);
+    }
+
+    // --- 7b. Service Detail Modal (click card, not the "book" link) ---
+    const serviceModal = document.querySelector('[data-service-modal]');
+    const serviceCards = document.querySelectorAll('[data-service-card]');
+    const serviceDataScript = document.getElementById('services-json');
+
+    if (serviceModal && serviceCards.length > 0 && serviceDataScript) {
+        try {
+            const serviceData = JSON.parse(serviceDataScript.textContent);
+            const whatsappBase = serviceModal.getAttribute('data-whatsapp-base');
+            const closeBtn = serviceModal.querySelector('[data-service-modal-close]');
+
+            const openServiceModal = (service) => {
+                serviceModal.querySelector('[data-service-modal-title]').textContent = service.title;
+
+                const iconWrap = serviceModal.querySelector('[data-service-modal-icon-wrap]');
+                iconWrap.innerHTML = service.icon_type === 'material'
+                    ? `<span class="material-symbols-outlined" style="font-size:30px">${service.icon_value}</span>`
+                    : service.icon_value;
+
+                const detailsEl = serviceModal.querySelector('[data-service-modal-details]');
+                const detailsText = service.details || service.description;
+                detailsEl.textContent = detailsText;
+                detailsEl.style.display = detailsText ? 'block' : 'none';
+
+                const featuresWrap = serviceModal.querySelector('[data-service-modal-features-wrap]');
+                const featuresList = serviceModal.querySelector('[data-service-modal-features]');
+                if (Array.isArray(service.features) && service.features.length > 0) {
+                    featuresList.innerHTML = service.features.map(f => `<li style="margin-bottom:8px;display:flex;align-items:center;gap:8px"><span style="color:#6c1830;font-weight:700">•</span> ${f}</li>`).join('');
+                    featuresWrap.style.display = 'block';
+                } else {
+                    featuresWrap.style.display = 'none';
+                }
+
+                const noteEl = serviceModal.querySelector('[data-service-modal-note]');
+                noteEl.textContent = service.details_note || '';
+                noteEl.style.display = service.details_note ? 'block' : 'none';
+
+                const waLink = serviceModal.querySelector('[data-service-modal-whatsapp]');
+                const waLabel = serviceModal.querySelector('[data-service-modal-whatsapp-label]');
+                if (whatsappBase) {
+                    waLink.href = whatsappBase + '?text=' + encodeURIComponent(`مرحباً، أرغب بالاستفسار عن خدمة "${service.title}"`);
+                    waLink.style.display = 'flex';
+                } else {
+                    waLink.style.display = 'none';
+                }
+                waLabel.textContent = `تواصل معنا عبر واتساب للاستفسار عن ${service.title}`;
+
+                serviceModal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+                if (closeBtn) closeBtn.focus();
+            };
+
+            const closeServiceModal = () => {
+                serviceModal.style.display = 'none';
+                document.body.style.overflow = '';
+            };
+
+            serviceCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const id = card.getAttribute('data-service-id');
+                    const service = serviceData.find(s => s.id == id);
+                    if (service) openServiceModal(service);
+                });
+            });
+
+            if (closeBtn) closeBtn.addEventListener('click', closeServiceModal);
+
+            serviceModal.addEventListener('click', (e) => {
+                if (e.target === serviceModal) closeServiceModal();
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && serviceModal.style.display === 'flex') {
+                    closeServiceModal();
+                }
+            });
+        } catch (err) {
+            console.error('Service modal init error:', err);
+        }
     }
 
     // --- 8. FAQ Accordion ---

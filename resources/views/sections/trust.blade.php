@@ -8,7 +8,7 @@
 
   <!-- Certifications Carousel -->
   @if($certifications->isNotEmpty())
-  <div style="position:relative;padding:0 56px;margin-bottom:64px">
+  <div data-carousel-wrap style="position:relative;padding:0 56px;margin-bottom:64px">
     <button type="button" data-certs-prev aria-label="السابق" style="position:absolute;top:50%;right:0;transform:translateY(-50%);z-index:5;width:44px;height:44px;border-radius:50%;background:#fff;border:1px solid rgba(108,24,48,.15);box-shadow:0 8px 20px -6px rgba(108,24,48,.3);cursor:pointer;display:flex;align-items:center;justify-content:center">
       <span class="material-symbols-outlined" style="font-size:22px;color:#6c1830">chevron_right</span>
     </button>
@@ -51,7 +51,7 @@
       <p style="font-size:15px;color:#7a6670;font-weight:300;margin:0">تجارب حقيقية لمراجعين استعادوا نضارة بشرتهم وثقتهم بأنفسهم</p>
     </div>
 
-    <div style="position:relative;padding:0 56px">
+    <div data-carousel-wrap style="position:relative;padding:0 56px">
       <button type="button" data-tests-prev aria-label="السابق" style="position:absolute;top:50%;right:8px;transform:translateY(-50%);z-index:5;width:44px;height:44px;border-radius:50%;background:#fff;border:1px solid rgba(108,24,48,.15);box-shadow:0 8px 20px -6px rgba(108,24,48,.3);cursor:pointer;display:flex;align-items:center;justify-content:center">
         <span class="material-symbols-outlined" style="font-size:22px;color:#6c1830">chevron_right</span>
       </button>

@@ -31,7 +31,7 @@ class LandingController extends Controller
         $doctors = Doctor::where('is_active', true)->orderBy('sort_order')->get();
         $spotlight = SpotlightBlock::with('doctor')->first();
         $allActiveServices = Service::where('is_active', true)->orderBy('sort_order')->get();
-        $services = $allActiveServices->take(6);
+        $services = $allActiveServices->take(8);
         $totalServicesCount = $allActiveServices->count();
         $certifications = Certification::where('is_active', true)->orderBy('sort_order')->get();
         $testimonials = Testimonial::where('is_active', true)->orderBy('sort_order')->get();

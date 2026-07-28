@@ -13,6 +13,9 @@ class Service extends Model
     protected $fillable = [
         'title',
         'description',
+        'details',
+        'features',
+        'details_note',
         'icon_type',
         'icon_value',
         'booking_option_id',
@@ -21,6 +24,7 @@ class Service extends Model
     ];
 
     protected $casts = [
+        'features' => 'array',
         'is_active' => 'boolean',
         'sort_order' => 'integer',
     ];

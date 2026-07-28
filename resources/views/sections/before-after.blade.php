@@ -6,7 +6,7 @@
     <p style="font-size:16px;line-height:1.8;font-weight:300;color:#5a4650;margin:0">{{ $sectionInfo->description ?? 'كل هذه النتائج تحت يديك مع أفضل الأطباء والمتخصصين بالمملكة' }}</p>
   </div>
 
-  <div style="position:relative;padding:0 60px">
+  <div data-carousel-wrap style="position:relative;padding:0 60px">
     <button type="button" data-compare-prev aria-label="السابق" style="position:absolute;top:50%;right:8px;transform:translateY(-50%);z-index:5;width:44px;height:44px;border-radius:50%;background:#fff;border:1px solid rgba(108,24,48,.15);box-shadow:0 8px 20px -6px rgba(108,24,48,.3);cursor:pointer;display:flex;align-items:center;justify-content:center">
       <span class="material-symbols-outlined" style="font-size:22px;color:#6c1830">chevron_right</span>
     </button>

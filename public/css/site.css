@@ -325,4 +325,19 @@ header.site-header.scrolled.menu-open {
     [data-col="modal"] > div:last-child { padding: 32px 24px !important; }
     [data-about-badge] { left: 10px !important; right: 10px !important; bottom: -16px !important; max-width: none !important; }
     [data-tests-wrap] { padding: 32px 18px !important; border-radius: 28px !important; }
+
+    /* Certifications / Testimonials / Before-After carousels */
+    [data-carousel-wrap] { padding-left: 6px !important; padding-right: 6px !important; }
+    [data-certs-prev], [data-certs-next],
+    [data-tests-prev], [data-tests-next],
+    [data-compare-prev], [data-compare-next] {
+        width: 36px !important; height: 36px !important;
+    }
+    [data-certs-card] { flex-basis: 220px !important; }
+    [data-tests-card] { flex-basis: 260px !important; padding: 22px 18px !important; }
+    [data-compare-card] { flex-basis: 220px !important; }
+
+    /* Service Detail Modal */
+    [data-service-modal] > div { padding: 32px 20px 28px !important; }
+    [data-service-modal-title] { font-size: 20px !important; }
 }

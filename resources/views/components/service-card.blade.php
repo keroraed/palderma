@@ -1,5 +1,5 @@
 @props(['service'])
-<div class="card-hover-lift" style="background:#fff;border-radius:24px;padding:32px 24px;border:1px solid rgba(108,24,48,.1);box-shadow:0 10px 25px -10px rgba(108,24,48,.06);display:flex;flex-direction:column;justify-content:space-between">
+<div data-service-card data-service-id="{{ $service->id }}" class="card-hover-lift" style="background:#fff;border-radius:24px;padding:32px 24px;border:1px solid rgba(108,24,48,.1);box-shadow:0 10px 25px -10px rgba(108,24,48,.06);display:flex;flex-direction:column;justify-content:space-between;cursor:pointer">
   <div>
     <div style="width:58px;height:58px;border-radius:18px;background:#faf0f3;color:#6c1830;display:flex;align-items:center;justify-content:center;margin-bottom:22px">
       @if($service->icon_type === 'material')

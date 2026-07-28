@@ -12,7 +12,7 @@
     @endforeach
   </div>
 
-  @if($totalServicesCount > 6)
+  @if($totalServicesCount > 8)
   <div style="text-align:center;margin-top:48px">
     <a href="{{ route('services.all') }}" style="background:#faf0f3;color:#6c1830;border:1px solid rgba(108,24,48,.2);padding:14px 32px;border-radius:100px;font-weight:700;font-size:15.5px;display:inline-flex;align-items:center;gap:8px">
       عرض جميع خدمات المركز ({{ $totalServicesCount }} خدمة)

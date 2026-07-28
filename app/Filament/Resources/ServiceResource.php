@@ -36,8 +36,23 @@ class ServiceResource extends Resource
                     ->required()
                     ->columnSpanFull(),
                 Forms\Components\Textarea::make('description')
-                    ->label('الوصف')
+                    ->label('الوصف (يظهر في بطاقة الخدمة المختصرة)')
                     ->required()
+                    ->rows(2)
+                    ->columnSpanFull(),
+                Forms\Components\Textarea::make('details')
+                    ->label('تفاصيل الخدمة (تظهر عند الضغط على البطاقة لعرض المزيد)')
+                    ->rows(3)
+                    ->columnSpanFull(),
+                Forms\Components\Repeater::make('features')
+                    ->label('ما تشمله هذه الخدمة (قائمة نقطية)')
+                    ->simple(
+                        Forms\Components\TextInput::make('feature')->required()
+                    )
+                    ->addActionLabel('إضافة عنصر')
+                    ->columnSpanFull(),
+                Forms\Components\Textarea::make('details_note')
+                    ->label('ملاحظة ختامية (اختياري، تظهر أسفل القائمة النقطية)')
                     ->rows(2)
                     ->columnSpanFull(),
                 Forms\Components\Radio::make('icon_type')

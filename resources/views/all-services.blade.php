@@ -28,5 +28,6 @@
   </div>
 
   @include('sections.footer')
+  @include('sections.service-modal')
 
 </x-app-layout>

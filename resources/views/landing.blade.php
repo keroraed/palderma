@@ -48,5 +48,6 @@
   </div>
 
   @include('sections.doctor-modal')
+  @include('sections.service-modal')
 
 </x-app-layout>
