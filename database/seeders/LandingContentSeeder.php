@@ -9,6 +9,7 @@ use App\Models\Doctor;
 use App\Models\Faq;
 use App\Models\HeroSlide;
 use App\Models\LegalPage;
+use App\Models\LinkHubItem;
 use App\Models\NavLink;
 use App\Models\Package;
 use App\Models\Section;
@@ -379,6 +380,20 @@ class LandingContentSeeder extends Seeder
             'title' => 'الشروط والأحكام',
             'content' => $this->termsContent(),
         ]);
+
+        // 17. Link Hub Items (links.palderma.com)
+        LinkHubItem::truncate();
+        $whatsappUrl = SocialLink::where('platform', 'whatsapp')->value('url') ?? 'https://wa.me/966500000000';
+        $mapsUrl = 'https://www.google.com/maps/search/?api=1&query=' . urlencode('الرياض، طريق الملك فهد، حي الصحافة');
+        $linkHubItems = [
+            ['label' => 'زوروا متجرنا الإلكتروني', 'url' => 'https://palderma.com/shop', 'icon' => 'storefront', 'sort_order' => 0],
+            ['label' => 'احجزي موعدك الآن', 'url' => 'https://services.palderma.com', 'icon' => 'calendar_month', 'sort_order' => 1],
+            ['label' => 'تواصل معنا عبر واتساب', 'url' => $whatsappUrl, 'icon' => 'call', 'sort_order' => 2],
+            ['label' => 'موقعنا على الخريطة', 'url' => $mapsUrl, 'icon' => 'location_on', 'sort_order' => 3],
+        ];
+        foreach ($linkHubItems as $item) {
+            LinkHubItem::create(array_merge($item, ['is_active' => true]));
+        }
 
         Schema::enableForeignKeyConstraints();
     }
