@@ -91,8 +91,6 @@ a:hover, a:focus-visible {
 
 [data-grid="services"] > div,
 [data-grid="doctors"] > div,
-[data-grid="certs"] > div,
-[data-grid="tests"] > div,
 [data-grid="pkgs"] > div {
     transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
 }
@@ -252,7 +250,7 @@ header.site-header.scrolled.menu-open {
     [data-nav="burger"] { display: block !important; }
     [data-col="about"], [data-col="spot"], [data-col="book"], [data-col="modal"] { grid-template-columns: 1fr !important; }
     [data-col="spot"] [data-spot-img], [data-col="modal"] > div:first-child { min-height: 300px !important; }
-    [data-grid="doctors"], [data-grid="tests"], [data-grid="pkgs"], [data-grid="certs"] { grid-template-columns: repeat(2, 1fr) !important; }
+    [data-grid="doctors"], [data-grid="pkgs"] { grid-template-columns: repeat(2, 1fr) !important; }
     [data-grid="services"] { grid-template-columns: repeat(2, 1fr) !important; }
     [data-grid="footer"] { grid-template-columns: 1fr 1fr !important; }
     [data-grid="pkgs"] > div { transform: none !important; }
@@ -290,7 +288,7 @@ header.site-header.scrolled.menu-open {
 
 @media(max-width:620px) {
     #top { border-radius: 0 0 28px 28px !important; }
-    [data-grid="services"], [data-grid="tests"], [data-grid="pkgs"], [data-grid="certs"], [data-grid="footer"] { grid-template-columns: 1fr !important; }
+    [data-grid="services"], [data-grid="pkgs"], [data-grid="footer"] { grid-template-columns: 1fr !important; }
     
     /* Doctors Mobile Snap Carousel */
     [data-grid="doctors"] {

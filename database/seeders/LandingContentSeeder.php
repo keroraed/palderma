@@ -171,18 +171,23 @@ class LandingContentSeeder extends Seeder
             Service::create(array_merge($s, ['is_active' => true]));
         }
 
-        // 6. Certifications
+        // 6. Certifications (real certificates supplied by the clinic)
         Certification::truncate();
-        Certification::create(['icon' => 'verified', 'title' => 'اعتماد المركز السعودي لمعايير المنشآت الصحية (CBAHI)', 'subtitle' => 'التزام كامل بأعلى معايير الجودة والسلامة الطبية', 'sort_order' => 0, 'is_active' => true]);
-        Certification::create(['icon' => 'workspace_premium', 'title' => 'تصنيف الهيئة السعودية للتخصصات الصحية', 'subtitle' => 'كافة كادرنا الطبي يحمل ترخيصاً مهنياً سارياً ومصنفاً', 'sort_order' => 1, 'is_active' => true]);
-        Certification::create(['icon' => 'shield', 'title' => 'أجهزة معتمدة من الغذاء والدواء SFDA & FDA', 'subtitle' => 'لا نستخدم سوى التقنيات والمواد المعتمدة رسمياً', 'sort_order' => 2, 'is_active' => true]);
-        Certification::create(['icon' => 'thumb_up', 'title' => 'نسبة رضا تجاوزت 98% حسب تقييم الزوار', 'subtitle' => 'أكثر من 80 ألف مراجع يثقون برعايتنا الطبية', 'sort_order' => 3, 'is_active' => true]);
+        Certification::create(['icon' => 'workspace_premium', 'image' => 'images/certificates/certificate-4.png', 'title' => 'رفع الكفاءة في الطب التجميلي الإجرائي', 'subtitle' => 'الجامعة الأردنية - مركز الاستشارات والتدريب، عمّان', 'sort_order' => 0, 'is_active' => true]);
+        Certification::create(['icon' => 'verified', 'image' => 'images/certificates/certificate-3.png', 'title' => 'دورة متقدمة في الحقن التجميلي الطبي (Hands-on)', 'subtitle' => 'Liverpool College for International Studies', 'sort_order' => 1, 'is_active' => true]);
+        Certification::create(['icon' => 'badge', 'image' => 'images/certificates/certificate-2.webp', 'title' => 'دورة معتمدة في تقنية خيوط الشد PDO Threads', 'subtitle' => 'Liverpool College for International Studies', 'sort_order' => 2, 'is_active' => true]);
+        Certification::create(['icon' => 'science', 'image' => 'images/certificates/certificate-5.png', 'title' => 'دورة متقدمة في تركيبات مستحضرات التجميل', 'subtitle' => 'الشبكة المصرية لدعم الصيادلة (EPSN)', 'sort_order' => 3, 'is_active' => true]);
+        Certification::create(['icon' => 'public', 'image' => 'images/certificates/certificate-6.png', 'title' => 'حضور المؤتمر العالمي للطب التجديدي', 'subtitle' => 'Global Regenerative Academy - دبي، الإمارات', 'sort_order' => 4, 'is_active' => true]);
+        Certification::create(['icon' => 'health_and_safety', 'image' => 'images/certificates/certificate-7.png', 'title' => 'اعتماد فن حقن الفيلر (Art of Filler Injection)', 'subtitle' => 'الجمعية الأمريكية للتعليم الطبي المستمر (AACME)', 'sort_order' => 5, 'is_active' => true]);
 
         // 7. Testimonials
         Testimonial::truncate();
         Testimonial::create(['name' => 'منى السبيعي', 'service_label' => 'جلسات إزالة الشعر بالليزر', 'rating' => 5, 'quote' => 'تجربة ممتازة جداً، العيادة قمة في النظافة والتعقيم، ود. سارة خلوقة ومتمكنة. النتائج ظهرت من أول جلسة والحمد لله.', 'avatar_initial' => 'م', 'sort_order' => 0, 'is_active' => true]);
         Testimonial::create(['name' => 'أحمد الغامدي', 'service_label' => 'علاج آثار حب الشباب', 'rating' => 5, 'quote' => 'راجعت د. عبد الله الهاجري لعلاج ندبات القديمة بالفراكشنال. الفرق خيالي والبشرة تحسنت بشكل كبير. شكراً لكادر بالديرما.', 'avatar_initial' => 'أ', 'sort_order' => 1, 'is_active' => true]);
         Testimonial::create(['name' => 'نورة المطيري', 'service_label' => 'حقن الفيلر والنضارة', 'rating' => 5, 'quote' => 'النتيجة طبيعية جداً وبدون أي تكتلات. د. ريم فهمت طلبي بالضبط واعطتني النظارة اللي كنت احلم فيها. اعتمدت العيادة خلاص.', 'avatar_initial' => 'ن', 'sort_order' => 2, 'is_active' => true]);
+        Testimonial::create(['name' => 'سارة القحطاني', 'service_label' => 'شد الوجه بالمورفيوس', 'rating' => 5, 'quote' => 'كنت خايفة من الألم بس الجلسة كانت مريحة جداً والفريق متعاون من أول دقيقة. بشرتي صارت مشدودة وأكثر إشراقاً.', 'avatar_initial' => 'س', 'sort_order' => 3, 'is_active' => true]);
+        Testimonial::create(['name' => 'خالد العتيبي', 'service_label' => 'علاج تساقط الشعر بالبلازما', 'rating' => 5, 'quote' => 'بعد عدة جلسات بلازما لاحظت فرق واضح في كثافة الشعر. الدكتور واضح جداً في شرح الخطة والنتائج المتوقعة.', 'avatar_initial' => 'خ', 'sort_order' => 4, 'is_active' => true]);
+        Testimonial::create(['name' => 'ريم الدوسري', 'service_label' => 'نحت الجسم وتنسيق القوام', 'rating' => 5, 'quote' => 'مركز محترف وأجهزة حديثة، وأهم شي المتابعة بعد الجلسات. أنصح فيه أي وحدة تبي نتيجة مضمونة وآمنة.', 'avatar_initial' => 'ر', 'sort_order' => 5, 'is_active' => true]);
 
         // 8. Packages
         Package::truncate();
@@ -283,7 +288,7 @@ class LandingContentSeeder extends Seeder
         NavLink::truncate();
         $navs = [
             ['label' => 'من نحن', 'href' => '#about', 'show_in_header' => true, 'show_in_footer' => true, 'is_cta' => false, 'sort_order' => 0],
-            ['label' => 'الأطباء', 'href' => '#doctors', 'show_in_header' => true, 'show_in_footer' => true, 'is_cta' => false, 'sort_order' => 1],
+            ['label' => 'الأطباء', 'href' => '#spotlight', 'show_in_header' => true, 'show_in_footer' => true, 'is_cta' => false, 'sort_order' => 1],
             ['label' => 'الخدمات', 'href' => '#services', 'show_in_header' => true, 'show_in_footer' => true, 'is_cta' => false, 'sort_order' => 2],
             ['label' => 'الباقات', 'href' => '#packages', 'show_in_header' => true, 'show_in_footer' => true, 'is_cta' => false, 'sort_order' => 3],
             ['label' => 'اعتماداتنا', 'href' => '#trust', 'show_in_header' => true, 'show_in_footer' => false, 'is_cta' => false, 'sort_order' => 4],
@@ -316,10 +321,17 @@ class LandingContentSeeder extends Seeder
             BookingOption::create(['label' => $opt, 'sort_order' => $idx, 'is_active' => true]);
         }
 
+        // Link each service to its matching booking option (same order, both lists
+        // describe the same 8 services) so "احجز هذه الخدمة" can auto-select it.
+        $bookingOptionsByOrder = BookingOption::orderBy('sort_order')->get();
+        Service::orderBy('sort_order')->get()->each(function ($service, $index) use ($bookingOptionsByOrder) {
+            $service->update(['booking_option_id' => $bookingOptionsByOrder->get($index)?->id]);
+        });
+
         // 14. Site Settings
         SiteSetting::truncate();
         SiteSetting::create([
-            'logo_primary' => 'images/branding/logo-primary.svg',
+            'logo_primary' => 'images/branding/logo-primary-new.png',
             'logo_white' => 'images/branding/logo-white.svg',
             'favicon' => 'images/branding/logo-primary.svg',
             'phone' => '+966 9200 00000',

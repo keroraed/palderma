@@ -11,6 +11,7 @@ class Certification extends Model
 
     protected $fillable = [
         'icon',
+        'image',
         'title',
         'subtitle',
         'sort_order',

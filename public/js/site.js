@@ -375,16 +375,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    const compareTrack = document.querySelector('[data-compare-track]');
-    if (compareTrack) {
-        const prevBtn = document.querySelector('[data-compare-prev]');
-        const nextBtn = document.querySelector('[data-compare-next]');
-        const dotsWrap = document.querySelector('[data-compare-dots]');
-        const cards = compareTrack.querySelectorAll('[data-compare-card]');
+    // Generic horizontal scroll-snap carousel: prev/next arrows + synced dot pagination.
+    // Expects data-{prefix}-track / -prev / -next / -dots / -card attributes.
+    const initCardCarousel = (prefix) => {
+        const track = document.querySelector(`[data-${prefix}-track]`);
+        if (!track) return;
+        const prevBtn = document.querySelector(`[data-${prefix}-prev]`);
+        const nextBtn = document.querySelector(`[data-${prefix}-next]`);
+        const dotsWrap = document.querySelector(`[data-${prefix}-dots]`);
+        const cards = track.querySelectorAll(`[data-${prefix}-card]`);
+        if (!cards.length) return;
 
         const scrollByCard = (dir) => {
-            const cardWidth = cards[0]?.getBoundingClientRect().width || 300;
-            compareTrack.scrollBy({ left: dir * (cardWidth + 20), behavior: 'smooth' });
+            const cardWidth = cards[0].getBoundingClientRect().width || 300;
+            track.scrollBy({ left: dir * (cardWidth + 20), behavior: 'smooth' });
         };
         prevBtn?.addEventListener('click', () => scrollByCard(-1));
         nextBtn?.addEventListener('click', () => scrollByCard(1));
@@ -400,7 +404,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 let closestIndex = 0;
                 let closestDist = Infinity;
                 cards.forEach((c, i) => {
-                    const dist = Math.abs(c.getBoundingClientRect().left - compareTrack.getBoundingClientRect().left);
+                    const dist = Math.abs(c.getBoundingClientRect().left - track.getBoundingClientRect().left);
                     if (dist < closestDist) { closestDist = dist; closestIndex = i; }
                 });
                 dots.forEach((d, i) => {
@@ -408,12 +412,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     d.style.width = i === closestIndex ? '22px' : '8px';
                 });
             };
-            compareTrack.addEventListener('scroll', () => {
-                clearTimeout(compareTrack._scrollTimer);
-                compareTrack._scrollTimer = setTimeout(updateActiveDot, 80);
+            track.addEventListener('scroll', () => {
+                clearTimeout(track._scrollTimer);
+                track._scrollTimer = setTimeout(updateActiveDot, 80);
             }, { passive: true });
             updateActiveDot();
         }
-    }
+    };
+
+    initCardCarousel('compare');
+
+    // --- 10. Certifications & Testimonials Carousels ---
+    initCardCarousel('certs');
+    initCardCarousel('tests');
 
 });

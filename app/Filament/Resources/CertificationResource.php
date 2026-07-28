@@ -52,11 +52,19 @@ class CertificationResource extends Resource
     {
         return $schema
             ->components([
+                Forms\Components\FileUpload::make('image')
+                    ->label('صورة الشهادة (اختياري، إن وجدت سيتم عرضها بدل الأيقونة)')
+                    ->disk('public_assets')
+                    ->directory('images/certificates')
+                    ->image()
+                    ->imageEditor()
+                    ->columnSpanFull(),
                 Forms\Components\Select::make('icon')
-                    ->label('الأيقونة')
+                    ->label('الأيقونة (تُستخدم فقط إن لم تُرفع صورة)')
                     ->options(self::iconOptions())
                     ->searchable()
                     ->required()
+                    ->default('verified')
                     ->columnSpanFull(),
                 Forms\Components\TextInput::make('title')
                     ->label('العنوان (مثال: وزارة الصحة)')
@@ -77,6 +85,9 @@ class CertificationResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\ImageColumn::make('image')
+                    ->label('الصورة')
+                    ->disk('public_assets'),
                 Tables\Columns\TextColumn::make('icon')
                     ->label('الأيقونة')
                     ->badge(),

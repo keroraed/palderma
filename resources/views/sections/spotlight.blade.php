@@ -1,6 +1,6 @@
 <!-- ===== DOCTOR SPOTLIGHT ===== -->
 @if($spotlight)
-<section class="reveal" style="max-width:1240px;margin:24px auto;padding:0 26px">
+<section id="spotlight" class="reveal" style="max-width:1240px;margin:24px auto;padding:0 26px">
   <div style="text-align:center;max-width:680px;margin:0 auto 40px">
     <h2 style="font-size:clamp(28px,3.6vw,44px);font-weight:900;line-height:1.2;margin:0;color:#2a1620">نبذه عن الدكتور</h2>
   </div>
