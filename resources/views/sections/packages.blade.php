@@ -1,5 +1,5 @@
 <!-- ===== PACKAGES ===== -->
-<section id="packages" class="reveal" style="max-width:1240px;margin:0 auto;padding:100px 26px">
+<section id="packages" class="reveal" style="max-width:1240px;margin:0 auto;padding:70px 26px">
   <div style="text-align:center;max-width:680px;margin:0 auto 60px">
     <div style="color:#96123c;font-weight:700;font-size:15px;letter-spacing:.12em;margin-bottom:14px">{{ $sectionInfo->eyebrow ?? 'العروض والباقات' }}</div>
     <h2 style="font-size:clamp(28px,3.6vw,44px);font-weight:900;line-height:1.2;margin:0 0 16px;color:#2a1620">{{ $sectionInfo->title ?? 'باقات مميزة مصممة لتلبية احتياجاتك بأسعار تنافسية' }}</h2>

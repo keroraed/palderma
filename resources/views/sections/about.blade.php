@@ -1,6 +1,6 @@
 <!-- ===== ABOUT ===== -->
 @if($about)
-<section id="about" class="reveal" style="max-width:1240px;margin:0 auto;padding:100px 26px">
+<section id="about" class="reveal" style="max-width:1240px;margin:0 auto;padding:70px 26px">
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center" data-col="about">
     <div>
       <div style="color:#96123c;font-weight:700;font-size:15px;letter-spacing:.12em;margin-bottom:14px">{{ $sectionInfo->eyebrow ?? 'من نحن' }}</div>

@@ -11,6 +11,7 @@ use App\Models\NavLink;
 use App\Models\Package;
 use App\Models\Section;
 use App\Models\Service;
+use App\Models\ServiceListItem;
 use App\Models\SiteSetting;
 use App\Models\SocialLink;
 use App\Models\SpotlightBlock;
@@ -29,6 +30,7 @@ class LandingController extends Controller
         $doctors = Doctor::where('is_active', true)->orderBy('sort_order')->get();
         $spotlight = SpotlightBlock::with('doctor')->first();
         $services = Service::where('is_active', true)->orderBy('sort_order')->get();
+        $allServices = ServiceListItem::where('is_active', true)->orderBy('sort_order')->get();
         $certifications = Certification::where('is_active', true)->orderBy('sort_order')->get();
         $testimonials = Testimonial::where('is_active', true)->orderBy('sort_order')->get();
         $packages = Package::where('is_active', true)->orderBy('sort_order')->get();
@@ -45,6 +47,7 @@ class LandingController extends Controller
             'doctors',
             'spotlight',
             'services',
+            'allServices',
             'certifications',
             'testimonials',
             'packages',

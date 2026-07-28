@@ -1,6 +1,6 @@
 <!-- ===== DOCTOR SPOTLIGHT ===== -->
 @if($spotlight)
-<section class="reveal" style="max-width:1240px;margin:60px auto;padding:0 26px">
+<section class="reveal" style="max-width:1240px;margin:24px auto;padding:0 26px">
   <div style="background:linear-gradient(135deg,#4d1022 0%,#6c1830 100%);border-radius:36px;overflow:hidden;color:#fff;display:grid;grid-template-columns:1fr 1.1fr;box-shadow:0 30px 60px -20px rgba(108,24,48,.5)" data-col="spot">
     <div data-spot-img style="position:relative;min-height:440px">
       <img src="{{ asset($spotlight->image) }}" alt="{{ $spotlight->name }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;display:block">

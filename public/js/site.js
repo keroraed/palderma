@@ -273,4 +273,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- 7. "View All Services" Toggle ---
+    const servicesToggle = document.querySelector('[data-services-toggle]');
+    const servicesPanel = document.querySelector('[data-services-panel]');
+    if (servicesToggle && servicesPanel) {
+        const toggleIcon = servicesToggle.querySelector('[data-services-toggle-icon]');
+        const toggleLabel = servicesToggle.querySelector('[data-services-toggle-label]');
+        const labelShow = toggleLabel.textContent;
+        const labelHide = 'إخفاء القائمة';
+        servicesToggle.addEventListener('click', () => {
+            const isOpen = servicesPanel.style.display === 'block';
+            servicesPanel.style.display = isOpen ? 'none' : 'block';
+            toggleIcon.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+            toggleLabel.textContent = isOpen ? labelShow : labelHide;
+            if (!isOpen) {
+                servicesPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        });
+    }
+
 });

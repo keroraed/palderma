@@ -255,6 +255,7 @@ header.site-header.scrolled.menu-open {
     [data-grid="doctors"], [data-grid="tests"], [data-grid="pkgs"], [data-grid="certs"] { grid-template-columns: repeat(2, 1fr) !important; }
     [data-grid="services"] { grid-template-columns: repeat(2, 1fr) !important; }
     [data-grid="footer"] { grid-template-columns: 1fr 1fr !important; }
+    [data-services-panel] > div { grid-template-columns: repeat(2, 1fr) !important; }
     [data-grid="pkgs"] > div { transform: none !important; }
     
     [data-menu-panel] {
@@ -291,6 +292,8 @@ header.site-header.scrolled.menu-open {
 @media(max-width:620px) {
     #top { border-radius: 0 0 28px 28px !important; }
     [data-grid="services"], [data-grid="tests"], [data-grid="pkgs"], [data-grid="certs"], [data-grid="footer"] { grid-template-columns: 1fr !important; }
+    [data-services-panel] { padding: 24px 20px !important; }
+    [data-services-panel] > div { grid-template-columns: 1fr !important; gap: 12px !important; }
     
     /* Doctors Mobile Snap Carousel */
     [data-grid="doctors"] {

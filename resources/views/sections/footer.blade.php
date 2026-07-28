@@ -1,5 +1,5 @@
 <!-- ===== FOOTER ===== -->
-<footer style="background:#4d1022;color:#fff;padding:80px 26px 36px;border-top:1px solid rgba(255,255,255,.08)">
+<footer style="background:#4d1022;color:#fff;padding:64px 26px 36px;border-top:1px solid rgba(255,255,255,.08)">
   <div style="max-width:1240px;margin:0 auto">
     <div data-grid="footer" style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:48px;margin-bottom:60px">
       <div>

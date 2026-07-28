@@ -1,5 +1,5 @@
 <!-- ===== BOOKING FORM ===== -->
-<section id="book" class="reveal" style="max-width:1240px;margin:0 auto;padding:100px 26px">
+<section id="book" class="reveal" style="max-width:1240px;margin:0 auto;padding:70px 26px">
   <div style="background:#ffffff;border-radius:36px;border:1px solid rgba(108,24,48,.12);box-shadow:0 30px 70px -20px rgba(108,24,48,.12);overflow:hidden;display:grid;grid-template-columns:1fr 1.1fr" data-col="book">
     <div style="background:linear-gradient(135deg,#4d1022 0%,#6c1830 100%);color:#fff;padding:60px 48px;display:flex;flex-direction:column;justify-content:space-between">
       <div>
