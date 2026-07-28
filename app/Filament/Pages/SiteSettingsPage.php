@@ -58,10 +58,6 @@ class SiteSettingsPage extends Page implements HasForms
                                 Forms\Components\TextInput::make('copyright')
                                     ->label('نص حقوق النشر (أسفل التذييل)')
                                     ->columnSpanFull(),
-                                Forms\Components\TextInput::make('privacy_policy_url')
-                                    ->label('رابط سياسة الخصوصية'),
-                                Forms\Components\TextInput::make('terms_url')
-                                    ->label('رابط الشروط والأحكام'),
                             ])->columns(2),
                         Tabs\Tab::make('الشعارات')
                             ->schema([

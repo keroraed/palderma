@@ -64,8 +64,8 @@
     <div style="padding-top:28px;border-top:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;font-size:13.5px;color:rgba(255,255,255,.6);font-weight:300">
       <div>{{ $settings->copyright ?? 'جميع الحقوق محفوظة © مجمع بالديرما الطبي 2026' }}</div>
       <div style="display:flex;gap:20px">
-        <a href="{{ $footerHrefFor($settings->privacy_policy_url ?? '#privacy') }}" style="color:rgba(255,255,255,.6)">سياسة الخصوصية</a>
-        <a href="{{ $footerHrefFor($settings->terms_url ?? '#terms') }}" style="color:rgba(255,255,255,.6)">الشروط والأحكام</a>
+        <a href="{{ route('legal.privacy') }}" style="color:rgba(255,255,255,.6)">سياسة الخصوصية</a>
+        <a href="{{ route('legal.terms') }}" style="color:rgba(255,255,255,.6)">الشروط والأحكام</a>
       </div>
     </div>
   </div>
