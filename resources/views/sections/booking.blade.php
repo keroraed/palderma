@@ -79,14 +79,6 @@
           <textarea name="notes" rows="3" placeholder="هل لديك أي استفسار أو حالة خاصة ترغبين بإبلاغ الطبيب بها؟" class="form-input-focus" style="width:100%;padding:14px 16px;border-radius:14px;border:1px solid rgba(108,24,48,.18);background:#faf6f4;font-size:15px;resize:vertical"></textarea>
         </div>
 
-        <!-- Saudi PDPL Explicit Consent -->
-        <div style="margin-bottom:24px;display:flex;align-items:flex-start;gap:10px">
-          <input type="checkbox" id="pdpl_consent" name="pdpl_consent" value="1" checked required style="margin-top:4px;accent-color:#6c1830;width:18px;height:18px">
-          <label for="pdpl_consent" style="font-size:13px;line-height:1.6;color:#6a5660;font-weight:300">
-            أوافق على معالجة بياناتي الشخصية لحجز الموعد والتواصل معي وفق <a href="#privacy" style="color:#96123c;text-decoration:underline">نظام حماية البيانات الشخصية (PDPL)</a>.
-          </label>
-        </div>
-
         <button type="submit" class="btn-hover-burgundy" style="width:100%;background:#6c1830;color:#fff;padding:16px;border-radius:100px;font-weight:700;font-size:17px;border:none;cursor:pointer">تأكيد طلب الحجز</button>
       </form>
     </div>

@@ -3,19 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Service extends Model
+class Faq extends Model
 {
     use SoftDeletes;
 
     protected $fillable = [
-        'title',
-        'description',
-        'icon_type',
-        'icon_value',
-        'booking_option_id',
+        'question',
+        'answer',
         'sort_order',
         'is_active',
     ];
@@ -24,9 +20,4 @@ class Service extends Model
         'is_active' => 'boolean',
         'sort_order' => 'integer',
     ];
-
-    public function bookingOption(): BelongsTo
-    {
-        return $this->belongsTo(BookingOption::class);
-    }
 }

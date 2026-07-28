@@ -1,6 +1,9 @@
 <!-- ===== DOCTOR SPOTLIGHT ===== -->
 @if($spotlight)
 <section class="reveal" style="max-width:1240px;margin:24px auto;padding:0 26px">
+  <div style="text-align:center;max-width:680px;margin:0 auto 40px">
+    <h2 style="font-size:clamp(28px,3.6vw,44px);font-weight:900;line-height:1.2;margin:0;color:#2a1620">نبذه عن الدكتور</h2>
+  </div>
   <div style="background:linear-gradient(135deg,#4d1022 0%,#6c1830 100%);border-radius:36px;overflow:hidden;color:#fff;display:grid;grid-template-columns:1fr 1.1fr;box-shadow:0 30px 60px -20px rgba(108,24,48,.5)" data-col="spot">
     <div data-spot-img style="position:relative;min-height:440px">
       <img src="{{ asset($spotlight->image) }}" alt="{{ $spotlight->name }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;display:block">
@@ -12,7 +15,6 @@
       </div>
       <h2 style="font-size:clamp(26px,3.2vw,38px);font-weight:900;margin:0 0 10px;line-height:1.25">{{ $spotlight->name }}</h2>
       <div style="color:#f7c8d6;font-size:17px;font-weight:500;margin-bottom:20px">{{ $spotlight->specialty }}</div>
-      <div style="font-size:14px;font-weight:700;color:#f7c8d6;margin-bottom:10px">نبذه عن الدكتور</div>
       <p style="font-size:16px;line-height:1.8;font-weight:300;color:rgba(255,255,255,.88);margin:0 0 28px">{{ $spotlight->bio }}</p>
 
       @if(!empty($spotlight->stats))

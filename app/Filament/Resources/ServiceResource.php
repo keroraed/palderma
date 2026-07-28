@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ServiceResource\Pages;
+use App\Models\BookingOption;
 use App\Models\Service;
 use Filament\Actions;
 use Filament\Forms;
@@ -58,6 +59,13 @@ class ServiceResource extends Resource
                     ->rows(4)
                     ->visible(fn (Get $get) => $get('icon_type') === 'svg')
                     ->required(fn (Get $get) => $get('icon_type') === 'svg')
+                    ->columnSpanFull(),
+                Forms\Components\Select::make('booking_option_id')
+                    ->label('اربط هذه الخدمة بخيار في نموذج الحجز (اختياري)')
+                    ->helperText('عند الربط، سيقوم زر "احجز هذه الخدمة" باختيار هذه الخدمة تلقائياً في نموذج الحجز')
+                    ->options(BookingOption::where('is_active', true)->orderBy('sort_order')->pluck('label', 'id'))
+                    ->searchable()
+                    ->native(false)
                     ->columnSpanFull(),
                 Forms\Components\TextInput::make('sort_order')
                     ->label('ترتيب العرض')

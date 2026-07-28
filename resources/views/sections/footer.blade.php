@@ -1,9 +1,12 @@
 <!-- ===== FOOTER ===== -->
+@php
+  $footerHrefFor = fn(string $href) => (str_starts_with($href, '#') && !request()->routeIs('landing')) ? '/' . $href : $href;
+@endphp
 <footer style="background:#4d1022;color:#fff;padding:64px 26px 36px;border-top:1px solid rgba(255,255,255,.08)">
   <div style="max-width:1240px;margin:0 auto">
     <div data-grid="footer" style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:48px;margin-bottom:60px">
       <div>
-        <a href="#top" style="display:inline-block;margin-bottom:20px">
+        <a href="{{ $footerHrefFor('#top') }}" style="display:inline-block;margin-bottom:20px">
           <img src="{{ asset($settings->logo_white ?? 'images/branding/logo-white.svg') }}" alt="بالديرما" style="height:74px;display:block">
         </a>
         <p style="font-size:15px;line-height:1.85;font-weight:300;color:rgba(255,255,255,.75);margin:0 0 24px;max-width:360px">
@@ -23,7 +26,7 @@
         <ul style="margin:0;padding:0;list-style:none">
           @foreach($navLinks->where('show_in_footer', true) as $link)
           <li style="margin-bottom:12px">
-            <a href="{{ $link->href }}" style="color:rgba(255,255,255,.8);font-size:14.5px;font-weight:300">{{ $link->label }}</a>
+            <a href="{{ $footerHrefFor($link->href) }}" style="color:rgba(255,255,255,.8);font-size:14.5px;font-weight:300">{{ $link->label }}</a>
           </li>
           @endforeach
         </ul>
@@ -61,8 +64,8 @@
     <div style="padding-top:28px;border-top:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;font-size:13.5px;color:rgba(255,255,255,.6);font-weight:300">
       <div>{{ $settings->copyright ?? 'جميع الحقوق محفوظة © مجمع بالديرما الطبي 2026' }}</div>
       <div style="display:flex;gap:20px">
-        <a href="{{ $settings->privacy_policy_url ?? '#privacy' }}" style="color:rgba(255,255,255,.6)">سياسة الخصوصية</a>
-        <a href="{{ $settings->terms_url ?? '#terms' }}" style="color:rgba(255,255,255,.6)">الشروط والأحكام</a>
+        <a href="{{ $footerHrefFor($settings->privacy_policy_url ?? '#privacy') }}" style="color:rgba(255,255,255,.6)">سياسة الخصوصية</a>
+        <a href="{{ $footerHrefFor($settings->terms_url ?? '#terms') }}" style="color:rgba(255,255,255,.6)">الشروط والأحكام</a>
       </div>
     </div>
   </div>

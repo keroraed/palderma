@@ -27,11 +27,17 @@
           @case('trust')
             @include('sections.trust', ['sectionInfo' => $section])
             @break
+          @case('before_after')
+            @include('sections.before-after', ['sectionInfo' => $section])
+            @break
           @case('packages')
             @include('sections.packages', ['sectionInfo' => $section])
             @break
           @case('booking')
             @include('sections.booking', ['sectionInfo' => $section])
+            @break
+          @case('faq')
+            @include('sections.faq', ['sectionInfo' => $section])
             @break
           @case('footer')
             @include('sections.footer')

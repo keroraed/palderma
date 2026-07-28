@@ -5,12 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ServiceListItem extends Model
+class BeforeAfterResult extends Model
 {
     use SoftDeletes;
 
     protected $fillable = [
-        'name',
+        'label',
+        'before_image',
+        'after_image',
         'sort_order',
         'is_active',
     ];

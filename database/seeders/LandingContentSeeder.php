@@ -6,6 +6,7 @@ use App\Models\AboutBlock;
 use App\Models\BookingOption;
 use App\Models\Certification;
 use App\Models\Doctor;
+use App\Models\Faq;
 use App\Models\HeroSlide;
 use App\Models\NavLink;
 use App\Models\Package;
@@ -38,9 +39,11 @@ class LandingContentSeeder extends Seeder
             ['key' => 'spotlight', 'title' => 'طبيب الشهر المميز', 'is_visible' => true, 'sort_order' => 4],
             ['key' => 'services', 'eyebrow' => 'خدماتنا المميزة', 'title' => 'حلول علاجية وتجميلية متكاملة لبشرة نضرة وقوام متناسق', 'description' => 'نستخدم أحدث التقنيات المعتمدة من هيئة الغذاء والدواء لضمان نتائج آمنة وملموسة.', 'is_visible' => true, 'sort_order' => 5],
             ['key' => 'trust', 'eyebrow' => 'اعتماداتنا وآراء مراجعينا', 'title' => 'ثقتكم هي رصيدنا وأساس تميزنا', 'description' => 'نلتزم بأعلى معايير الجودة والسلامة المعتمدة محلياً ودولياً.', 'is_visible' => true, 'sort_order' => 6],
-            ['key' => 'packages', 'eyebrow' => 'العروض والباقات', 'title' => 'باقات مميزة مصممة لتلبية احتياجاتك بأسعار تنافسية', 'description' => 'اختر الباقة المناسبة واستمتع بعناية فائقة وتوفير حقيقي.', 'is_visible' => true, 'sort_order' => 7],
-            ['key' => 'booking', 'eyebrow' => 'احجز موعدك', 'title' => 'ابدأي رحلة العناية ببشرتكِ وجسمكِ اليوم', 'description' => 'سجلي بياناتك وسيقوم فريق الخدمة بالتواصل معكِ فوراً لتأكيد الموعد المناسب.', 'is_visible' => true, 'sort_order' => 8],
-            ['key' => 'footer', 'title' => 'تذييل الصفحة', 'is_visible' => true, 'sort_order' => 9],
+            ['key' => 'before_after', 'title' => 'نتائج بالديرما تتكلم عن نفسها، شوف بنفسك', 'description' => 'كل هذه النتائج تحت يديك مع أفضل الأطباء والمتخصصين بالمملكة', 'is_visible' => true, 'sort_order' => 7],
+            ['key' => 'packages', 'eyebrow' => 'العروض والباقات', 'title' => 'باقات مميزة مصممة لتلبية احتياجاتك بأسعار تنافسية', 'description' => 'اختر الباقة المناسبة واستمتع بعناية فائقة وتوفير حقيقي.', 'is_visible' => true, 'sort_order' => 8],
+            ['key' => 'booking', 'eyebrow' => 'احجز موعدك', 'title' => 'ابدأي رحلة العناية ببشرتكِ وجسمكِ اليوم', 'description' => 'سجلي بياناتك وسيقوم فريق الخدمة بالتواصل معكِ فوراً لتأكيد الموعد المناسب.', 'is_visible' => true, 'sort_order' => 9],
+            ['key' => 'faq', 'eyebrow' => 'لديك سؤال؟', 'title' => 'الأسئلة الشائعة', 'is_visible' => true, 'sort_order' => 10],
+            ['key' => 'footer', 'title' => 'تذييل الصفحة', 'is_visible' => true, 'sort_order' => 11],
         ];
         foreach ($sections as $s) {
             Section::updateOrCreate(['key' => $s['key']], $s);
@@ -333,6 +336,23 @@ class LandingContentSeeder extends Seeder
             'booking_privacy_note' => 'معلوماتك الشخصية محمية ومحافظ عليها بشرية بالكامل وفق نظام حماية البيانات الشخصية السعودي (PDPL).',
             'booking_success_message' => 'تم استلام طلب حجزك بنجاح! سيتواصل معك فريق الاستقبال خلال وقت قصير لتأكيد الموعد.',
         ]);
+
+        // 15. FAQs
+        Faq::truncate();
+        $faqs = [
+            ['question' => 'ما هي الخدمات التي يقدمها مجمع بالديرما؟', 'answer' => 'نقدم مجموعة متكاملة من خدمات الأمراض الجلدية، علاجات الليزر، الحقن التجميلية، العناية بالبشرة، وزراعة الشعر، على يد نخبة من الأطباء الاستشاريين المعتمدين.'],
+            ['question' => 'كم يستغرق الحجز ومتى أحصل على موعد؟', 'answer' => 'يستغرق تعبئة نموذج الحجز أقل من دقيقة، وسيتواصل معك فريق الاستقبال خلال 24 ساعة لتأكيد أقرب موعد متاح يناسبك.'],
+            ['question' => 'هل الخدمات مناسبة للجميع؟', 'answer' => 'تختلف كل حالة عن الأخرى، لذلك يقوم الطبيب المختص بتقييم بشرتك أو حالتك أولاً خلال الاستشارة لتحديد العلاج الأنسب لك بأمان.'],
+            ['question' => 'كيف أعرف تكلفة الخدمة؟', 'answer' => 'تختلف التكلفة حسب نوع الخدمة وعدد الجلسات المطلوبة. تواصل معنا عبر نموذج الحجز أو الواتساب وسنوضح لك التفاصيل والأسعار بشفافية كاملة.'],
+        ];
+        foreach ($faqs as $i => $faq) {
+            Faq::create([
+                'question' => $faq['question'],
+                'answer' => $faq['answer'],
+                'sort_order' => $i,
+                'is_active' => true,
+            ]);
+        }
 
         Schema::enableForeignKeyConstraints();
     }

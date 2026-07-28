@@ -273,23 +273,147 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 7. "View All Services" Toggle ---
-    const servicesToggle = document.querySelector('[data-services-toggle]');
-    const servicesPanel = document.querySelector('[data-services-panel]');
-    if (servicesToggle && servicesPanel) {
-        const toggleIcon = servicesToggle.querySelector('[data-services-toggle-icon]');
-        const toggleLabel = servicesToggle.querySelector('[data-services-toggle-label]');
-        const labelShow = toggleLabel.textContent;
-        const labelHide = 'إخفاء القائمة';
-        servicesToggle.addEventListener('click', () => {
-            const isOpen = servicesPanel.style.display === 'block';
-            servicesPanel.style.display = isOpen ? 'none' : 'block';
-            toggleIcon.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
-            toggleLabel.textContent = isOpen ? labelShow : labelHide;
-            if (!isOpen) {
-                servicesPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    // --- 7. "Book This Service" -> pre-select in booking form ---
+    const bookingSelect = document.querySelector('select[name="service_option_id"]');
+
+    const applyServiceOption = (id) => {
+        if (!bookingSelect || !id) return;
+        const optionExists = Array.from(bookingSelect.options).some(o => o.value === String(id));
+        if (optionExists) {
+            bookingSelect.value = String(id);
+        }
+    };
+
+    // Same-page click (service card is on the homepage already): set + smooth scroll, no reload.
+    document.querySelectorAll('[data-book-service]').forEach(link => {
+        link.addEventListener('click', (e) => {
+            const optionId = link.getAttribute('data-service-option-id');
+            if (bookingSelect && optionId) {
+                e.preventDefault();
+                applyServiceOption(optionId);
+                document.getElementById('book')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            // If there's no matching select on this page (e.g. the standalone
+            // /services page), let the link navigate normally to /#book,
+            // but first attach the option id as a query param so the
+            // destination page can pick it up on load (see below).
+            else if (optionId) {
+                e.preventDefault();
+                window.location.href = '/?service_option=' + encodeURIComponent(optionId) + '#book';
             }
         });
+    });
+
+    // Cross-page arrival (came from /services with ?service_option=ID#book): apply on load.
+    const urlParams = new URLSearchParams(window.location.search);
+    const incomingServiceOption = urlParams.get('service_option');
+    if (incomingServiceOption) {
+        applyServiceOption(incomingServiceOption);
+        setTimeout(() => {
+            document.getElementById('book')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+    }
+
+    // --- 8. FAQ Accordion ---
+    document.querySelectorAll('[data-faq-item]').forEach(item => {
+        const toggle = item.querySelector('[data-faq-toggle]');
+        const answer = item.querySelector('[data-faq-answer]');
+        const icon = item.querySelector('[data-faq-icon]');
+        if (!toggle || !answer || !icon) return;
+
+        toggle.addEventListener('click', () => {
+            const isOpen = answer.style.display === 'block';
+            // Close all other open items (classic single-open accordion)
+            document.querySelectorAll('[data-faq-answer]').forEach(a => { a.style.display = 'none'; });
+            document.querySelectorAll('[data-faq-icon]').forEach(i => {
+                i.textContent = 'add';
+                i.style.transform = 'rotate(0deg)';
+            });
+            if (!isOpen) {
+                answer.style.display = 'block';
+                icon.textContent = 'remove';
+                icon.style.transform = 'rotate(180deg)';
+            }
+        });
+    });
+
+    // --- 9. Before/After Compare Slider Carousel ---
+    document.querySelectorAll('[data-compare-card]').forEach(card => {
+        const handle = card.querySelector('[data-compare-handle]');
+        const afterImg = card.querySelector('[data-compare-after]');
+        if (!handle || !afterImg) return;
+
+        let dragging = false;
+
+        const setPosition = (clientX) => {
+            const rect = card.getBoundingClientRect();
+            let pct = ((clientX - rect.left) / rect.width) * 100;
+            pct = Math.max(0, Math.min(100, pct));
+            handle.style.left = pct + '%';
+            afterImg.style.clipPath = `inset(0 0 0 ${pct}%)`;
+        };
+
+        const start = (e) => { dragging = true; card.style.cursor = 'ew-resize'; };
+        const end = () => { dragging = false; card.style.cursor = ''; };
+        const move = (e) => {
+            if (!dragging) return;
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            setPosition(clientX);
+        };
+
+        handle.addEventListener('mousedown', start);
+        handle.addEventListener('touchstart', start, { passive: true });
+        window.addEventListener('mousemove', move);
+        window.addEventListener('touchmove', move, { passive: true });
+        window.addEventListener('mouseup', end);
+        window.addEventListener('touchend', end);
+
+        // Click anywhere on the card also moves the slider there.
+        card.addEventListener('click', (e) => {
+            if (e.target === handle || handle.contains(e.target)) return;
+            setPosition(e.clientX);
+        });
+    });
+
+    const compareTrack = document.querySelector('[data-compare-track]');
+    if (compareTrack) {
+        const prevBtn = document.querySelector('[data-compare-prev]');
+        const nextBtn = document.querySelector('[data-compare-next]');
+        const dotsWrap = document.querySelector('[data-compare-dots]');
+        const cards = compareTrack.querySelectorAll('[data-compare-card]');
+
+        const scrollByCard = (dir) => {
+            const cardWidth = cards[0]?.getBoundingClientRect().width || 300;
+            compareTrack.scrollBy({ left: dir * (cardWidth + 20), behavior: 'smooth' });
+        };
+        prevBtn?.addEventListener('click', () => scrollByCard(-1));
+        nextBtn?.addEventListener('click', () => scrollByCard(1));
+
+        if (dotsWrap) {
+            const dots = Array.from(dotsWrap.children);
+            dots.forEach((dot, i) => {
+                dot.addEventListener('click', () => {
+                    cards[i]?.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+                });
+            });
+            const updateActiveDot = () => {
+                let closestIndex = 0;
+                let closestDist = Infinity;
+                cards.forEach((c, i) => {
+                    const dist = Math.abs(c.getBoundingClientRect().left - compareTrack.getBoundingClientRect().left);
+                    if (dist < closestDist) { closestDist = dist; closestIndex = i; }
+                });
+                dots.forEach((d, i) => {
+                    d.style.background = i === closestIndex ? '#6c1830' : 'rgba(108,24,48,.25)';
+                    d.style.width = i === closestIndex ? '22px' : '8px';
+                });
+            };
+            compareTrack.addEventListener('scroll', () => {
+                clearTimeout(compareTrack._scrollTimer);
+                compareTrack._scrollTimer = setTimeout(updateActiveDot, 80);
+            }, { passive: true });
+            updateActiveDot();
+        }
     }
 
 });

@@ -27,7 +27,6 @@ class BookingController extends Controller
             'preferred_date' => ['nullable', 'date'],
             'service_option_id' => ['required', 'exists:booking_service_options,id'],
             'notes' => ['nullable', 'string', 'max:1000'],
-            'pdpl_consent' => ['required', 'accepted'],
         ]);
 
         $serviceOption = BookingOption::findOrFail($validated['service_option_id']);

@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\AboutBlock;
+use App\Models\BeforeAfterResult;
 use App\Models\BookingOption;
 use App\Models\Certification;
 use App\Models\Doctor;
+use App\Models\Faq;
 use App\Models\HeroSlide;
 use App\Models\NavLink;
 use App\Models\Package;
 use App\Models\Section;
 use App\Models\Service;
-use App\Models\ServiceListItem;
 use App\Models\SiteSetting;
 use App\Models\SocialLink;
 use App\Models\SpotlightBlock;
@@ -29,14 +30,17 @@ class LandingController extends Controller
         $about = AboutBlock::first();
         $doctors = Doctor::where('is_active', true)->orderBy('sort_order')->get();
         $spotlight = SpotlightBlock::with('doctor')->first();
-        $services = Service::where('is_active', true)->orderBy('sort_order')->get();
-        $allServices = ServiceListItem::where('is_active', true)->orderBy('sort_order')->get();
+        $allActiveServices = Service::where('is_active', true)->orderBy('sort_order')->get();
+        $services = $allActiveServices->take(6);
+        $totalServicesCount = $allActiveServices->count();
         $certifications = Certification::where('is_active', true)->orderBy('sort_order')->get();
         $testimonials = Testimonial::where('is_active', true)->orderBy('sort_order')->get();
         $packages = Package::where('is_active', true)->orderBy('sort_order')->get();
         $navLinks = NavLink::where('is_active', true)->orderBy('sort_order')->get();
         $socialLinks = SocialLink::where('is_active', true)->orderBy('sort_order')->get();
         $bookingOptions = BookingOption::where('is_active', true)->orderBy('sort_order')->get();
+        $faqs = Faq::where('is_active', true)->orderBy('sort_order')->get();
+        $beforeAfterResults = BeforeAfterResult::where('is_active', true)->orderBy('sort_order')->get();
         $settings = SiteSetting::first() ?? new SiteSetting();
 
         return view('landing', compact(
@@ -47,13 +51,15 @@ class LandingController extends Controller
             'doctors',
             'spotlight',
             'services',
-            'allServices',
+            'totalServicesCount',
             'certifications',
             'testimonials',
             'packages',
             'navLinks',
             'socialLinks',
             'bookingOptions',
+            'faqs',
+            'beforeAfterResults',
             'settings'
         ));
     }
