@@ -10,6 +10,7 @@ use App\Models\Faq;
 use App\Models\HeroSlide;
 use App\Models\LegalPage;
 use App\Models\LinkHubItem;
+use App\Models\LinkHubSetting;
 use App\Models\NavLink;
 use App\Models\Package;
 use App\Models\Section;
@@ -394,6 +395,14 @@ class LandingContentSeeder extends Seeder
         foreach ($linkHubItems as $item) {
             LinkHubItem::create(array_merge($item, ['is_active' => true]));
         }
+
+        // 18. Link Hub Settings (logo/title/tagline for links.palderma.com)
+        LinkHubSetting::truncate();
+        LinkHubSetting::create([
+            'logo' => 'images/branding/logo-white-new.svg',
+            'title' => 'مجمع بالديرما الطبي',
+            'tagline' => 'عيادة الجلدية والتجميل والليزر — كل ما تحتاجينه في مكان واحد',
+        ]);
 
         Schema::enableForeignKeyConstraints();
     }

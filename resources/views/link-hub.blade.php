@@ -3,12 +3,14 @@
   <div dir="rtl" style="min-height:100vh;width:100%;background:linear-gradient(160deg,#4d1022 0%,#6c1830 55%,#4d1022 100%);display:flex;justify-content:center;padding:64px 20px">
     <div style="max-width:460px;width:100%;text-align:center">
 
-      <div style="width:96px;height:96px;border-radius:50%;background:#fff;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;padding:16px;box-shadow:0 20px 40px -10px rgba(0,0,0,.35)">
-        <img src="{{ asset($settings->logo_primary ?? 'images/branding/logo-primary-new.png') }}" alt="بالديرما" style="width:100%;height:100%;object-fit:contain;display:block">
-      </div>
+      <img src="{{ asset($hubSettings->logo ?? 'images/branding/logo-white-new.svg') }}" alt="{{ $hubSettings->title ?? 'بالديرما' }}" style="height:68px;width:auto;margin:0 auto 24px;display:block;filter:drop-shadow(0 10px 20px rgba(0,0,0,.25))">
 
-      <h1 style="color:#fff;font-size:24px;font-weight:900;margin:0 0 8px">مجمع بالديرما الطبي</h1>
-      <p style="color:rgba(255,255,255,.8);font-size:14.5px;font-weight:300;line-height:1.7;margin:0 0 36px">عيادة الجلدية والتجميل والليزر — كل ما تحتاجينه في مكان واحد</p>
+      <h1 style="color:#fff;font-size:24px;font-weight:900;margin:0 0 8px">{{ $hubSettings->title ?? 'مجمع بالديرما الطبي' }}</h1>
+      @if(!empty($hubSettings->tagline))
+      <p style="color:rgba(255,255,255,.8);font-size:14.5px;font-weight:300;line-height:1.7;margin:0 0 36px">{{ $hubSettings->tagline }}</p>
+      @else
+      <div style="margin-bottom:36px"></div>
+      @endif
 
       <div style="display:flex;flex-direction:column;gap:16px">
         @foreach($items as $item)
