@@ -19,6 +19,8 @@
       <div data-compare-card style="position:relative;flex:0 0 320px;aspect-ratio:4/5;border-radius:24px;overflow:hidden;scroll-snap-align:start;box-shadow:0 20px 40px -15px rgba(108,24,48,.35);cursor:ew-resize;user-select:none">
         <img src="{{ asset($result->before_image) }}" alt="قبل" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;pointer-events:none">
         <img data-compare-after src="{{ asset($result->after_image) }}" alt="بعد" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;clip-path:inset(0 0 0 50%);pointer-events:none">
+        <div style="position:absolute;top:14px;left:14px;z-index:3;background:rgba(42,22,32,.72);color:#fff;font-size:12px;font-weight:700;padding:5px 16px;border-radius:100px;backdrop-filter:blur(4px);pointer-events:none">قبل</div>
+        <div style="position:absolute;top:14px;right:14px;z-index:3;background:rgba(150,18,60,.85);color:#fff;font-size:12px;font-weight:700;padding:5px 16px;border-radius:100px;backdrop-filter:blur(4px);pointer-events:none">بعد</div>
         <div data-compare-handle style="position:absolute;top:0;bottom:0;left:50%;width:0;transform:translateX(-50%)">
           <div style="position:absolute;top:0;bottom:0;right:0;width:3px;background:#fff;box-shadow:0 0 8px rgba(0,0,0,.3)"></div>
           <div style="position:absolute;top:50%;right:50%;transform:translate(50%,-50%);width:40px;height:40px;border-radius:50%;background:#fff;box-shadow:0 4px 14px rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center">
