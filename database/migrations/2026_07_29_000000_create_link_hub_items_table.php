@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('link_hub_items', function (Blueprint $table) {
             $table->id();
             $table->string('label');
-            $table->string('url');
+            $table->text('url');
             $table->string('icon')->default('link');
             $table->integer('sort_order')->default(0);
             $table->boolean('is_active')->default(true);
