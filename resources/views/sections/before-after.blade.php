@@ -38,9 +38,8 @@
     </div>
   </div>
 
-  @php $whatsapp = $socialLinks->firstWhere('platform', 'whatsapp'); @endphp
   <div style="text-align:center;margin-top:36px">
-    <a href="{{ $whatsapp->url ?? '#book' }}" @if($whatsapp) target="_blank" rel="noopener" @endif style="display:inline-flex;align-items:center;gap:10px;background:#25D366;color:#fff;padding:16px 34px;border-radius:100px;font-weight:700;font-size:16px;box-shadow:0 14px 30px -10px rgba(37,211,102,.5)">
+    <a href="#book" style="display:inline-flex;align-items:center;gap:10px;background:#25D366;color:#fff;padding:16px 34px;border-radius:100px;font-weight:700;font-size:16px;box-shadow:0 14px 30px -10px rgba(37,211,102,.5)">
       <span class="material-symbols-outlined" style="font-size:20px">calendar_month</span>
       احجزي موعدك الآن
     </a>

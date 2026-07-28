@@ -60,7 +60,7 @@ class BookingController extends Controller
 
         $successMsg = 'تم استلام طلب حجزك بنجاح! سيتواصل معك فريق الاستقبال خلال وقت قصير لتأكيد الموعد.';
 
-        if ($request->wantsJson()) {
+        if ($request->expectsJson()) {
             return response()->json([
                 'success' => true,
                 'message' => $successMsg,

@@ -236,6 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const response = await fetch('/booking', {
                     method: 'POST',
                     headers: {
+                        'Accept': 'application/json',
                         'X-Requested-With': 'XMLHttpRequest',
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
                     },
@@ -290,6 +291,15 @@ document.addEventListener('DOMContentLoaded', () => {
             // Card itself opens the details modal on click; this link must handle its
             // own "go book this" action instead, not bubble up and open the modal too.
             e.stopPropagation();
+
+            // If this link lives inside the service detail modal, close it first
+            // so the booking form underneath is actually visible.
+            const parentModal = link.closest('[data-service-modal]');
+            if (parentModal) {
+                parentModal.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+
             const optionId = link.getAttribute('data-service-option-id');
             if (bookingSelect && optionId) {
                 e.preventDefault();
@@ -325,7 +335,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (serviceModal && serviceCards.length > 0 && serviceDataScript) {
         try {
             const serviceData = JSON.parse(serviceDataScript.textContent);
-            const whatsappBase = serviceModal.getAttribute('data-whatsapp-base');
             const closeBtn = serviceModal.querySelector('[data-service-modal-close]');
 
             const openServiceModal = (service) => {
@@ -356,13 +365,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const waLink = serviceModal.querySelector('[data-service-modal-whatsapp]');
                 const waLabel = serviceModal.querySelector('[data-service-modal-whatsapp-label]');
-                if (whatsappBase) {
-                    waLink.href = whatsappBase + '?text=' + encodeURIComponent(`مرحباً، أرغب بالاستفسار عن خدمة "${service.title}"`);
-                    waLink.style.display = 'flex';
+                if (service.booking_option_id) {
+                    waLink.setAttribute('data-service-option-id', service.booking_option_id);
                 } else {
-                    waLink.style.display = 'none';
+                    waLink.removeAttribute('data-service-option-id');
                 }
-                waLabel.textContent = `تواصل معنا عبر واتساب للاستفسار عن ${service.title}`;
+                waLabel.textContent = `احجزي موعدك الآن لخدمة "${service.title}"`;
 
                 serviceModal.style.display = 'flex';
                 document.body.style.overflow = 'hidden';
