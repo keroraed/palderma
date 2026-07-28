@@ -12,6 +12,7 @@
       </div>
       <h2 style="font-size:clamp(26px,3.2vw,38px);font-weight:900;margin:0 0 10px;line-height:1.25">{{ $spotlight->name }}</h2>
       <div style="color:#f7c8d6;font-size:17px;font-weight:500;margin-bottom:20px">{{ $spotlight->specialty }}</div>
+      <div style="font-size:14px;font-weight:700;color:#f7c8d6;margin-bottom:10px">نبذه عن الدكتور</div>
       <p style="font-size:16px;line-height:1.8;font-weight:300;color:rgba(255,255,255,.88);margin:0 0 28px">{{ $spotlight->bio }}</p>
 
       @if(!empty($spotlight->stats))
