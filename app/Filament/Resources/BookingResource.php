@@ -7,6 +7,7 @@ use App\Jobs\PushLeadToZoho;
 use App\Models\Booking;
 use Filament\Actions;
 use Filament\Forms;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
@@ -61,7 +62,7 @@ class BookingResource extends Resource
                     ->label('ملاحظات المريض')
                     ->columnSpanFull()
                     ->readOnly(),
-                Forms\Components\Section::make('تفاصيل Zoho CRM')
+                Section::make('تفاصيل Zoho CRM')
                     ->schema([
                         Forms\Components\TextInput::make('zoho_lead_id')
                             ->label('معرف Lead في Zoho')
