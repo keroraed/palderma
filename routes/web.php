@@ -19,3 +19,4 @@ Route::get('/services', AllServicesController::class)->name('services.all');
 Route::post('/booking', [BookingController::class, 'store'])->name('booking.store');
 Route::get('/privacy-policy', [LegalPageController::class, 'privacy'])->name('legal.privacy');
 Route::get('/terms', [LegalPageController::class, 'terms'])->name('legal.terms');
+Route::get('/__link-hub-preview', LinkHubController::class); // TEMP: for client screenshot before DNS is live, remove after
