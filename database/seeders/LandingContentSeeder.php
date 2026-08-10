@@ -348,6 +348,7 @@ class LandingContentSeeder extends Seeder
             'seo_description' => 'احجز موعدك في مجمع بالديرما الطبي بالرياض. نخبة من استشاريي الجلدية والتجميل والليزر بأحدث التقنيات العالمية.',
             'seo_og_image' => 'images/who.webp',
             'ga_tracking_id' => 'G-XXXXXXXXXX',
+            'gtm_id' => 'GTM-WG35FJWM',
             'booking_privacy_note' => 'معلوماتك الشخصية محمية ومحافظ عليها بشرية بالكامل وفق نظام حماية البيانات الشخصية السعودي (PDPL).',
             'booking_success_message' => 'تم استلام طلب حجزك بنجاح! سيتواصل معك فريق الاستقبال خلال وقت قصير لتأكيد الموعد.',
         ]);

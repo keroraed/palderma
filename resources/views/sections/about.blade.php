@@ -21,7 +21,7 @@
 
       @php $whatsapp = $socialLinks->firstWhere('platform', 'whatsapp'); @endphp
       @if($whatsapp)
-      <a href="{{ $whatsapp->url }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:12px;background:#25D366;color:#fff;padding:15px 28px;border-radius:100px;font-weight:700;font-size:15.5px;margin-top:28px;box-shadow:0 14px 30px -10px rgba(37,211,102,.5);transition:transform .25s ease,box-shadow .25s ease" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 18px 36px -8px rgba(37,211,102,.6)'" onmouseout="this.style.transform='none';this.style.boxShadow='0 14px 30px -10px rgba(37,211,102,.5)'">
+      <a id="btn-whatsapp" href="{{ $whatsapp->url }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:12px;background:#25D366;color:#fff;padding:15px 28px;border-radius:100px;font-weight:700;font-size:15.5px;margin-top:28px;box-shadow:0 14px 30px -10px rgba(37,211,102,.5);transition:transform .25s ease,box-shadow .25s ease" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 18px 36px -8px rgba(37,211,102,.6)'" onmouseout="this.style.transform='none';this.style.boxShadow='0 14px 30px -10px rgba(37,211,102,.5)'">
         <span style="width:28px;height:28px;display:flex;align-items:center;justify-content:center"><x-social-icon platform="whatsapp" /></span>
         تواصل معنا عبر واتساب
       </a>

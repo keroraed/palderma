@@ -14,9 +14,14 @@
           <div style="width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;color:#fff">
             <span class="material-symbols-outlined">call</span>
           </div>
+          @php $bookingWhatsapp = $socialLinks->firstWhere('platform', 'whatsapp'); @endphp
           <div>
             <div style="font-size:13px;color:rgba(255,255,255,.7);font-weight:300">للاستفسار والحجز الفوري:</div>
+            @if($bookingWhatsapp)
+            <a id="btn-whatsapp-booking" href="{{ $bookingWhatsapp->url }}" target="_blank" rel="noopener" style="font-size:17px;font-weight:700;color:#fff;direction:ltr;text-align:right;text-decoration:none;display:block">{{ $settings->phone ?? '+966 9200 00000' }}</a>
+            @else
             <div style="font-size:17px;font-weight:700;color:#fff;direction:ltr;text-align:right">{{ $settings->phone ?? '+966 9200 00000' }}</div>
+            @endif
           </div>
         </div>
 
@@ -33,7 +38,7 @@
     </div>
 
     <div style="padding:60px 48px">
-      <form data-booking-form action="/booking" method="POST">
+      <form id="booking-form" data-booking-form action="/booking" method="POST">
         @csrf
         <!-- Honeypot -->
         <input type="text" name="website_hp" style="display:none" tabindex="-1" autocomplete="off">
@@ -79,7 +84,7 @@
           <textarea name="notes" rows="3" placeholder="هل لديك أي استفسار أو حالة خاصة ترغبين بإبلاغ الطبيب بها؟" class="form-input-focus" style="width:100%;padding:14px 16px;border-radius:14px;border:1px solid rgba(108,24,48,.18);background:#faf6f4;font-size:15px;resize:vertical"></textarea>
         </div>
 
-        <button type="submit" class="btn-hover-burgundy" style="width:100%;background:#6c1830;color:#fff;padding:16px;border-radius:100px;font-weight:700;font-size:17px;border:none;cursor:pointer">تأكيد طلب الحجز</button>
+        <button id="btn-booking-submit" type="submit" class="btn-hover-burgundy" style="width:100%;background:#6c1830;color:#fff;padding:16px;border-radius:100px;font-weight:700;font-size:17px;border:none;cursor:pointer">تأكيد طلب الحجز</button>
       </form>
     </div>
   </div>

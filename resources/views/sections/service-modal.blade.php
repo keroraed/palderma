@@ -18,7 +18,7 @@
 
     <p data-service-modal-note style="font-size:14.5px;line-height:1.8;font-weight:300;color:#5a4650;margin:0 0 26px"></p>
 
-    <a href="/#book" data-book-service data-service-modal-whatsapp class="btn-hover-burgundy" style="display:flex;align-items:center;justify-content:center;gap:10px;background:#6c1830;color:#fff;padding:15px;border-radius:100px;font-weight:700;font-size:15.5px;box-shadow:0 14px 30px -10px rgba(108,24,48,.5)">
+    <a id="btn-whatsapp-service" href="/#book" data-book-service data-service-modal-whatsapp class="btn-hover-burgundy" style="display:flex;align-items:center;justify-content:center;gap:10px;background:#6c1830;color:#fff;padding:15px;border-radius:100px;font-weight:700;font-size:15.5px;box-shadow:0 14px 30px -10px rgba(108,24,48,.5)">
       <span class="material-symbols-outlined" style="font-size:20px">calendar_month</span>
       <span data-service-modal-whatsapp-label>احجزي موعدك الآن</span>
     </a>

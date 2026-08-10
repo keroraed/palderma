@@ -93,6 +93,8 @@ class SiteSettingsPage extends Page implements HasForms
                                     ->directory('images'),
                                 Forms\Components\TextInput::make('ga_tracking_id')
                                     ->label('معرّف Google Analytics'),
+                                Forms\Components\TextInput::make('gtm_id')
+                                    ->label('معرّف Google Tag Manager (مثال: GTM-XXXXXXX)'),
                             ]),
                         Tabs\Tab::make('نموذج الحجز')
                             ->schema([

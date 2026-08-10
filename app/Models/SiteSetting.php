@@ -21,6 +21,7 @@ class SiteSetting extends Model
         'seo_description',
         'seo_og_image',
         'ga_tracking_id',
+        'gtm_id',
         'booking_privacy_note',
         'booking_success_message',
     ];

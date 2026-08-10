@@ -253,6 +253,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         alertBox.style.color = '#155724';
                         alertBox.style.border = '1px solid rgba(40, 167, 69, 0.3)';
                         alertBox.textContent = data.message || 'تم حجز موعدك بنجاح!';
+
+                        // Google Tag Manager - Booking Success
+                        window.dataLayer = window.dataLayer || [];
+                        window.dataLayer.push({ event: 'booking_success' });
                     }
                 } else {
                     throw new Error(data.message || 'حدث خطأ أثناء الإرسال. يرجى المحاولة لاحقاً.');
