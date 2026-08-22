@@ -14,9 +14,18 @@ Route::domain('links.palderma.com')->group(function () {
     Route::get('/', LinkHubController::class)->name('linkhub');
 });
 
+// The main site moved from services.palderma.com to the root domain
+// palderma.com. Old links/bookmarks to the old host (and any www traffic)
+// get a permanent redirect to the same path on the new canonical domain,
+// preserving query strings. Must stay registered before the generic routes.
+$redirectToPrimaryDomain = function (\Illuminate\Http\Request $request) {
+    return redirect('https://palderma.com' . $request->getRequestUri(), 301);
+};
+Route::domain('services.palderma.com')->any('/{any?}', $redirectToPrimaryDomain)->where('any', '.*');
+Route::domain('www.palderma.com')->any('/{any?}', $redirectToPrimaryDomain)->where('any', '.*');
+
 Route::get('/', LandingController::class)->name('landing');
 Route::get('/services', AllServicesController::class)->name('services.all');
 Route::post('/booking', [BookingController::class, 'store'])->name('booking.store');
 Route::get('/privacy-policy', [LegalPageController::class, 'privacy'])->name('legal.privacy');
 Route::get('/terms', [LegalPageController::class, 'terms'])->name('legal.terms');
-Route::get('/__link-hub-preview', LinkHubController::class); // TEMP: for client screenshot before DNS is live, remove after

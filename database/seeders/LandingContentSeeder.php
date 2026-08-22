@@ -389,7 +389,7 @@ class LandingContentSeeder extends Seeder
         $mapsUrl = 'https://www.google.com/maps/search/?api=1&query=' . urlencode('الرياض، طريق الملك فهد، حي الصحافة');
         $linkHubItems = [
             ['label' => 'زوروا متجرنا الإلكتروني', 'url' => 'https://palderma.com/shop', 'icon' => 'storefront', 'sort_order' => 0],
-            ['label' => 'احجزي موعدك الآن', 'url' => 'https://services.palderma.com', 'icon' => 'calendar_month', 'sort_order' => 1],
+            ['label' => 'احجزي موعدك الآن', 'url' => 'https://palderma.com', 'icon' => 'calendar_month', 'sort_order' => 1],
             ['label' => 'تواصل معنا عبر واتساب', 'url' => $whatsappUrl, 'icon' => 'call', 'sort_order' => 2],
             ['label' => 'موقعنا على الخريطة', 'url' => $mapsUrl, 'icon' => 'location_on', 'sort_order' => 3],
         ];
