@@ -82,24 +82,28 @@ class BlogPostResource extends Resource
                                 Forms\Components\RichEditor::make('content')
                                     ->label('محتوى المقال')
                                     ->required()
-                                    // "attachFiles" (inline image upload inside the editor body) is
-                                    // omitted deliberately: this Filament install ships no
-                                    // FileAttachmentProvider implementation, so that button has no
-                                    // working storage backend. Extra in-article images are handled
-                                    // by the "gallery" field below instead, using the same FileUpload
-                                    // + public_assets disk pattern already proven across this project.
+                                    // BlogPost doesn't implement Filament's HasRichContent contract,
+                                    // so this uses the RichEditor's simple/direct attachment path
+                                    // (HasFileAttachments trait) rather than the model-integrated
+                                    // one — no FileAttachmentProvider needed, it just stores the
+                                    // upload to the given disk/directory and inserts a plain <img
+                                    // src="..."> at the cursor, same as any other public image on
+                                    // this site. Sanitized on render like the rest of the content.
+                                    ->fileAttachmentsDisk('public_assets')
+                                    ->fileAttachmentsDirectory('images/blog/attachments')
+                                    ->fileAttachmentsVisibility('public')
                                     ->toolbarButtons([
                                         ['bold', 'italic', 'underline', 'strike', 'link'],
                                         ['h2', 'h3'],
                                         ['alignStart', 'alignCenter', 'alignEnd'],
-                                        ['blockquote', 'bulletList', 'orderedList'],
+                                        ['blockquote', 'bulletList', 'orderedList', 'attachFiles'],
                                         ['table', 'horizontalRule'],
                                         ['undo', 'redo'],
                                     ])
                                     ->columnSpanFull(),
                                 Forms\Components\Repeater::make('gallery')
                                     ->label('معرض صور إضافية (اختياري)')
-                                    ->helperText('صور تُعرض أسفل محتوى المقال، كل صورة بتعليق قصير يُستخدم أيضاً كنص بديل (Alt) لمحركات البحث.')
+                                    ->helperText('لإدراج صورة داخل المقال في مكان معيّن، استخدمي زر الصورة 📎 داخل شريط أدوات المحرر أعلاه. هذا المعرض منفصل: صور تُعرض معًا في شبكة أسفل نهاية المقال، كل صورة بتعليق قصير يُستخدم أيضاً كنص بديل (Alt) لمحركات البحث.')
                                     ->schema([
                                         Forms\Components\FileUpload::make('image')
                                             ->label('الصورة')
