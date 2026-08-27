@@ -47,8 +47,8 @@
   <!-- Testimonials Carousel -->
   <div data-tests-wrap style="background:#faf0f3;border-radius:36px;padding:48px 0 44px">
     <div style="text-align:center;margin-bottom:36px;padding:0 36px">
-      <h3 style="font-size:24px;font-weight:900;color:#6c1830;margin:0 0 8px">ماذا يقول مراجعونا عن بالديرما؟</h3>
-      <p style="font-size:15px;color:#7a6670;font-weight:300;margin:0">تجارب حقيقية لمراجعين استعادوا نضارة بشرتهم وثقتهم بأنفسهم</p>
+      <h3 style="font-size:24px;font-weight:900;color:#6c1830;margin:0 0 8px">{{ $testimonialsSection->title ?? 'آراء وتجارب مراجعين أفضل عيادة تجميل في فلسطين' }}</h3>
+      <p style="font-size:15px;color:#7a6670;font-weight:300;margin:0">{{ $testimonialsSection->description ?? 'تجارب حقيقية لخدمات الجلدية، الليزر، وعلاج البشرة في مركز بالديرما' }}</p>
     </div>
 
     <div data-carousel-wrap style="position:relative;padding:0 56px">

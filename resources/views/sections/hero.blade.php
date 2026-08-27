@@ -3,8 +3,14 @@
   @foreach($heroSlides as $index => $slide)
   <div data-hero-slide style="position:absolute;inset:0;display: {{ $index === 0 ? 'block' : 'none' }}; opacity: {{ $index === 0 ? '1' : '0' }}; transition: opacity 0.8s ease; z-index: {{ $index === 0 ? 2 : 1 }}">
     <div style="position:absolute;inset:0">
-      <img data-hero-desktop src="{{ asset($slide->image_desktop) }}" alt="{{ $slide->image_alt ?? $slide->title }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
-      <img data-hero-mobile src="{{ asset($slide->image_mobile) }}" alt="{{ $slide->image_alt ?? $slide->title }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none">
+      {{-- Slide 1 is the LCP image: load it eagerly with high priority. Later
+           slides are off-screen until the carousel advances, so defer them. --}}
+      <img data-hero-desktop src="{{ asset($slide->image_desktop) }}" alt="{{ $slide->image_alt ?? $slide->title }}"
+           @if($index === 0) fetchpriority="high" decoding="async" @else loading="lazy" decoding="async" @endif
+           style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+      <img data-hero-mobile src="{{ asset($slide->image_mobile) }}" alt="{{ $slide->image_alt ?? $slide->title }}"
+           @if($index === 0) fetchpriority="high" decoding="async" @else loading="lazy" decoding="async" @endif
+           style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none">
     </div>
     <div data-hero-grad style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(77,16,34,.9) 0%,rgba(77,16,34,.62) 48%,rgba(108,24,48,.28) 100%);pointer-events:none"></div>
 
@@ -16,7 +22,13 @@
           <span style="width:7px;height:7px;border-radius:50%;background:#f7c8d6"></span>{{ $slide->tag }}
         </div>
         @endif
+        {{-- Only the first slide carries the page's single <h1>; the rest use a
+             visually identical div so the page never ships multiple H1 tags (SEO). --}}
+        @if($index === 0)
         <h1 style="color:#fff;font-weight:900;font-size:clamp(34px,5.6vw,62px);line-height:1.12;margin:0 0 18px">{{ $slide->title }}</h1>
+        @else
+        <div style="color:#fff;font-weight:900;font-size:clamp(34px,5.6vw,62px);line-height:1.12;margin:0 0 18px">{{ $slide->title }}</div>
+        @endif
         <p style="color:rgba(255,255,255,.9);font-size:clamp(16px,2vw,21px);font-weight:300;line-height:1.7;margin:0 0 34px;max-width:520px">{{ $slide->subtitle }}</p>
         <div style="display:flex;gap:14px;flex-wrap:wrap">
           <a href="#book" class="btn-hover-light-pink" style="background:#fff;color:#6c1830;padding:15px 34px;border-radius:100px;font-weight:700;font-size:17px">احجز موعدك الآن</a>

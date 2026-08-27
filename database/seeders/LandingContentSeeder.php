@@ -39,9 +39,12 @@ class LandingContentSeeder extends Seeder
             ['key' => 'stats', 'title' => 'شريط الإحصائيات', 'is_visible' => true, 'sort_order' => 1],
             ['key' => 'about', 'eyebrow' => 'من نحن', 'title' => 'عناية جلدية متكاملة تجمع بين الخبرة الطبية ولمسة التجميل', 'description' => 'تأسّس مركز بالديرما ليكون وجهةً موثوقة للعناية بصحة البشرة وجمالها في المملكة.', 'is_visible' => true, 'sort_order' => 2],
             ['key' => 'doctors', 'eyebrow' => 'فريقنا الطبي', 'title' => 'نخبة من الأطباء والاستشاريين المعتمدين', 'description' => 'كوادر طبية متميزة بحاصلين على أرفع الشهادات العالمية والخبرات الممتدة.', 'is_visible' => true, 'sort_order' => 3],
-            ['key' => 'spotlight', 'title' => 'طبيب الشهر المميز', 'is_visible' => true, 'sort_order' => 4],
+            ['key' => 'spotlight', 'title' => 'نبذة عن طبيب عيادة التجميل', 'is_visible' => true, 'sort_order' => 4],
             ['key' => 'services', 'eyebrow' => 'خدماتنا المميزة', 'title' => 'حلول علاجية وتجميلية متكاملة لبشرة نضرة وقوام متناسق', 'description' => 'نستخدم أحدث التقنيات المعتمدة من هيئة الغذاء والدواء لضمان نتائج آمنة وملموسة.', 'is_visible' => true, 'sort_order' => 5],
             ['key' => 'trust', 'eyebrow' => 'اعتماداتنا وآراء مراجعينا', 'title' => 'ثقتكم هي رصيدنا وأساس تميزنا', 'description' => 'نلتزم بأعلى معايير الجودة والسلامة المعتمدة محلياً ودولياً.', 'is_visible' => true, 'sort_order' => 6],
+            // Not rendered by the landing loop (no matching @case) — holds the
+            // admin-editable heading/subtitle for the testimonials sub-block.
+            ['key' => 'testimonials', 'title' => 'آراء وتجارب مراجعين أفضل عيادة تجميل في فلسطين', 'description' => 'تجارب حقيقية لخدمات الجلدية، الليزر، وعلاج البشرة في مركز بالديرما', 'is_visible' => false, 'sort_order' => 99],
             ['key' => 'before_after', 'title' => 'نتائج بالديرما تتكلم عن نفسها، شوف بنفسك', 'description' => 'كل هذه النتائج تحت يديك مع أفضل الأطباء والمتخصصين بالمملكة', 'is_visible' => true, 'sort_order' => 7],
             ['key' => 'packages', 'eyebrow' => 'العروض والباقات', 'title' => 'باقات مميزة مصممة لتلبية احتياجاتك بأسعار تنافسية', 'description' => 'اختر الباقة المناسبة واستمتع بعناية فائقة وتوفير حقيقي.', 'is_visible' => true, 'sort_order' => 8],
             ['key' => 'booking', 'eyebrow' => 'احجز موعدك', 'title' => 'ابدأي رحلة العناية ببشرتكِ وجسمكِ اليوم', 'description' => 'سجلي بياناتك وسيقوم فريق الخدمة بالتواصل معكِ فوراً لتأكيد الموعد المناسب.', 'is_visible' => true, 'sort_order' => 9],

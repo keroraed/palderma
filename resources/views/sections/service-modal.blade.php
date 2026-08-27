@@ -22,6 +22,10 @@
       <span class="material-symbols-outlined" style="font-size:20px">calendar_month</span>
       <span data-service-modal-whatsapp-label>احجزي موعدك الآن</span>
     </a>
+
+    <div style="margin-top:22px;padding-top:20px;border-top:1px solid rgba(108,24,48,.1)">
+      <x-share-buttons data-service-modal-share label="شارك هذه الخدمة" :compact="true" />
+    </div>
   </div>
 </div>
 

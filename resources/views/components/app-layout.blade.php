@@ -18,12 +18,21 @@
     <title>{{ $settings->seo_title ?? 'مجمع بالديرما الطبي — عيادة الجلدية والتجميل والليزر بالرياض' }}</title>
     <meta name="description" content="{{ $settings->seo_description ?? 'احجز موعدك في مجمع بالديرما الطبي بالرياض. نخبة من استشاريي الجلدية والتجميل والليزر بأحدث التقنيات العالمية.' }}">
     
+    <link rel="canonical" href="{{ url()->current() }}">
+
     @if(!empty($settings->seo_og_image))
     <meta property="og:image" content="{{ asset($settings->seo_og_image) }}">
+    <meta name="twitter:image" content="{{ asset($settings->seo_og_image) }}">
     @endif
     <meta property="og:title" content="{{ $settings->seo_title ?? 'مجمع بالديرما الطبي' }}">
     <meta property="og:description" content="{{ $settings->seo_description ?? '' }}">
     <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:site_name" content="{{ $settings->seo_title ?? 'مركز بالديرما' }}">
+    <meta property="og:locale" content="ar_AR">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $settings->seo_title ?? 'مركز بالديرما' }}">
+    <meta name="twitter:description" content="{{ $settings->seo_description ?? '' }}">
 
     @if(!empty($settings->favicon))
     <link rel="icon" href="{{ asset($settings->favicon) }}">

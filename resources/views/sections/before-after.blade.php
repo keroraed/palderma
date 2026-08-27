@@ -17,8 +17,8 @@
     <div data-compare-track style="display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px 26px">
       @foreach($beforeAfterResults as $result)
       <div data-compare-card style="position:relative;flex:0 0 320px;aspect-ratio:4/5;border-radius:24px;overflow:hidden;scroll-snap-align:start;box-shadow:0 20px 40px -15px rgba(108,24,48,.35);cursor:ew-resize;user-select:none">
-        <img src="{{ asset($result->before_image) }}" alt="قبل" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;pointer-events:none">
-        <img data-compare-after src="{{ asset($result->after_image) }}" alt="بعد" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;clip-path:inset(0 0 0 50%);pointer-events:none">
+        <img src="{{ asset($result->before_image) }}" alt="{{ $result->label ? 'قبل ' . $result->label . ' في مركز بالديرما' : 'صورة قبل العلاج في مركز بالديرما' }}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;pointer-events:none">
+        <img data-compare-after src="{{ asset($result->after_image) }}" alt="{{ $result->label ? 'بعد ' . $result->label . ' في مركز بالديرما' : 'صورة بعد العلاج في مركز بالديرما' }}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;clip-path:inset(0 0 0 50%);pointer-events:none">
         <div style="position:absolute;top:14px;left:14px;z-index:3;background:rgba(42,22,32,.72);color:#fff;font-size:12px;font-weight:700;padding:5px 16px;border-radius:100px;backdrop-filter:blur(4px);pointer-events:none">قبل</div>
         <div style="position:absolute;top:14px;right:14px;z-index:3;background:rgba(150,18,60,.85);color:#fff;font-size:12px;font-weight:700;padding:5px 16px;border-radius:100px;backdrop-filter:blur(4px);pointer-events:none">بعد</div>
         <div data-compare-handle style="position:absolute;top:0;bottom:0;left:50%;width:0;transform:translateX(-50%)">

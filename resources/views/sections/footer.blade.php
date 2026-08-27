@@ -61,6 +61,11 @@
       </div>
     </div>
 
+    <div style="padding:22px 0 26px;border-top:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap">
+      <span style="font-size:14px;font-weight:700;color:rgba(255,255,255,.85)">شارك مركز بالديرما مع أصدقائك</span>
+      <x-share-buttons label="" :compact="true" />
+    </div>
+
     <div style="padding-top:28px;border-top:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;font-size:13.5px;color:rgba(255,255,255,.6);font-weight:300">
       <div>{{ $settings->copyright ?? 'جميع الحقوق محفوظة © مجمع بالديرما الطبي 2026' }}</div>
       <div style="display:flex;gap:20px">

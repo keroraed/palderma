@@ -25,6 +25,10 @@ class LandingController extends Controller
     public function __invoke(): View
     {
         $sections = Section::where('is_visible', true)->orderBy('sort_order')->get();
+        // Heading/subtitle for the testimonials block nested inside the trust
+        // section. Held as its own row so admins can edit it, but never rendered
+        // by the landing loop directly (no matching @case).
+        $testimonialsSection = Section::where('key', 'testimonials')->first();
         $heroSlides = HeroSlide::where('is_active', true)->orderBy('sort_order')->get();
         $stats = Stat::where('is_active', true)->orderBy('sort_order')->get();
         $about = AboutBlock::first();
@@ -45,6 +49,7 @@ class LandingController extends Controller
 
         return view('landing', compact(
             'sections',
+            'testimonialsSection',
             'heroSlides',
             'stats',
             'about',

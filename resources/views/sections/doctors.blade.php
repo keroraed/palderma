@@ -10,7 +10,7 @@
     @foreach($doctors as $doctor)
     <div data-doctor-card data-doctor-id="{{ $doctor->id }}" class="card-hover-lift" style="background:#fff;border-radius:24px;overflow:hidden;border:1px solid rgba(108,24,48,.1);box-shadow:0 12px 30px -10px rgba(108,24,48,.08);cursor:pointer">
       <div style="position:relative;aspect-ratio:4/3;overflow:hidden;background:#f3e8eb">
-        <img src="{{ asset($doctor->image) }}" alt="{{ $doctor->name }}" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block">
+        <img src="{{ asset($doctor->image) }}" alt="{{ $doctor->name }}{{ $doctor->specialty ? ' — ' . $doctor->specialty : '' }}" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block">
         <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(42,22,32,.4) 100%)"></div>
       </div>
       <div style="padding:22px;text-align:center">

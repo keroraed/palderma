@@ -29,7 +29,7 @@
     </div>
     <div style="position:relative">
       <div style="position:relative;border-radius:26px;overflow:hidden;aspect-ratio:4/5;box-shadow:0 30px 70px -30px rgba(108,24,48,.45)">
-        <img src="{{ asset($about->image) }}" alt="عن بالديرما" style="width:100%;height:100%;object-fit:cover;display:block">
+        <img src="{{ asset($about->image) }}" alt="مركز بالديرما للجلدية والتجميل في الخليل" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block">
       </div>
       @if(!empty($about->badge_title))
       <div data-about-badge style="position:absolute;bottom:-24px;left:24px;background:#fff;border-radius:20px;padding:18px 24px;box-shadow:0 20px 40px -10px rgba(108,24,48,.25);border:1px solid rgba(108,24,48,.12);display:flex;align-items:center;gap:14px">

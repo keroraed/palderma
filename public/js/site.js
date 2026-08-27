@@ -171,7 +171,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 modal.querySelector('[data-modal-pat]').textContent = doctor.patients_display || '';
 
                 const img = modal.querySelector('[data-modal-img]');
-                if (img) img.src = doctor.image;
+                if (img) {
+                    img.src = doctor.image;
+                    // The markup ships with an empty alt (no doctor chosen yet);
+                    // fill it in so the image is never announced as unlabelled.
+                    img.alt = doctor.specialty ? `${doctor.name} — ${doctor.specialty}` : doctor.name;
+                }
 
                 const qualList = modal.querySelector('[data-modal-quals]');
                 if (qualList && Array.isArray(doctor.qualifications)) {
@@ -376,6 +381,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 waLabel.textContent = `احجزي موعدك الآن لخدمة "${service.title}"`;
 
+                // Point the modal's share buttons at this specific service. There
+                // is no per-service page, so share the services listing anchored
+                // by id — enough for the link to land somewhere meaningful.
+                const shareRoot = serviceModal.querySelector('[data-share-root]');
+                if (shareRoot) {
+                    shareRoot.setAttribute('data-share-url', `${window.location.origin}/services#service-${service.id}`);
+                    shareRoot.setAttribute('data-share-title', `${service.title} — مركز بالديرما`);
+                }
+
                 serviceModal.style.display = 'flex';
                 document.body.style.overflow = 'hidden';
                 if (closeBtn) closeBtn.focus();
@@ -521,5 +535,60 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 10. Certifications & Testimonials Carousels ---
     initCardCarousel('certs');
     initCardCarousel('tests');
+
+    // --- 11. Social Share Buttons ---
+    // Each [data-share-root] carries the url/title to share, so the same markup
+    // works for the page itself and for a single service inside the modal
+    // (where the JS rewrites those attributes as the modal content changes).
+    const buildShareHref = (network, url, title) => {
+        const u = encodeURIComponent(url);
+        const t = encodeURIComponent(title);
+        switch (network) {
+            case 'whatsapp': return `https://wa.me/?text=${t}%20${u}`;
+            case 'facebook': return `https://www.facebook.com/sharer/sharer.php?u=${u}`;
+            case 'x': return `https://twitter.com/intent/tweet?url=${u}&text=${t}`;
+            case 'telegram': return `https://t.me/share/url?url=${u}&text=${t}`;
+            default: return url;
+        }
+    };
+
+    document.querySelectorAll('[data-share-root]').forEach(root => {
+        root.querySelectorAll('[data-share]').forEach(btn => {
+            const network = btn.getAttribute('data-share');
+
+            if (network === 'copy') {
+                btn.addEventListener('click', async () => {
+                    const url = root.getAttribute('data-share-url') || window.location.href;
+                    const iconEl = btn.querySelector('[data-share-copy-icon]');
+                    try {
+                        await navigator.clipboard.writeText(url);
+                    } catch (err) {
+                        // Clipboard API needs a secure context / permission; fall back
+                        // to a throwaway textarea so the button still works.
+                        const ta = document.createElement('textarea');
+                        ta.value = url;
+                        ta.style.position = 'fixed';
+                        ta.style.opacity = '0';
+                        document.body.appendChild(ta);
+                        ta.select();
+                        try { document.execCommand('copy'); } catch (e) { /* nothing else to try */ }
+                        document.body.removeChild(ta);
+                    }
+                    if (iconEl) {
+                        iconEl.textContent = 'check';
+                        setTimeout(() => { iconEl.textContent = 'link'; }, 1800);
+                    }
+                });
+                return;
+            }
+
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const url = root.getAttribute('data-share-url') || window.location.href;
+                const title = root.getAttribute('data-share-title') || document.title;
+                window.open(buildShareHref(network, url, title), '_blank', 'noopener,width=640,height=560');
+            });
+        });
+    });
 
 });
