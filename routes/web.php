@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AllServicesController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\LegalPageController;
@@ -31,3 +32,10 @@ Route::post('/booking', [BookingController::class, 'store'])->name('booking.stor
 Route::get('/privacy-policy', [LegalPageController::class, 'privacy'])->name('legal.privacy');
 Route::get('/terms', [LegalPageController::class, 'terms'])->name('legal.terms');
 Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');
+
+Route::prefix('blog')->name('blog.')->group(function () {
+    Route::get('/', [BlogController::class, 'index'])->name('index');
+    Route::get('/category/{category:slug}', [BlogController::class, 'category'])->name('category');
+    Route::get('/tag/{tag:slug}', [BlogController::class, 'tag'])->name('tag');
+    Route::get('/{slug}', [BlogController::class, 'show'])->name('show');
+});

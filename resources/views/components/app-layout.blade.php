@@ -1,4 +1,21 @@
-@props(['settings' => null])
+@props([
+    'settings' => null,
+    'seoTitle' => null,
+    'seoDescription' => null,
+    'ogImage' => null,
+    'canonical' => null,
+    'ogType' => 'website',
+    'noindex' => false,
+    'articlePublishedTime' => null,
+    'articleModifiedTime' => null,
+    'articleAuthor' => null,
+])
+@php
+    $pageTitle = $seoTitle ?: ($settings->seo_title ?? 'مجمع بالديرما الطبي — عيادة الجلدية والتجميل والليزر بالرياض');
+    $pageDescription = $seoDescription ?: ($settings->seo_description ?? 'احجز موعدك في مجمع بالديرما الطبي بالرياض. نخبة من استشاريي الجلدية والتجميل والليزر بأحدث التقنيات العالمية.');
+    $pageImage = $ogImage ? asset($ogImage) : (!empty($settings->seo_og_image) ? asset($settings->seo_og_image) : null);
+    $pageCanonical = $canonical ?: url()->current();
+@endphp
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -15,24 +32,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ $settings->seo_title ?? 'مجمع بالديرما الطبي — عيادة الجلدية والتجميل والليزر بالرياض' }}</title>
-    <meta name="description" content="{{ $settings->seo_description ?? 'احجز موعدك في مجمع بالديرما الطبي بالرياض. نخبة من استشاريي الجلدية والتجميل والليزر بأحدث التقنيات العالمية.' }}">
-    
-    <link rel="canonical" href="{{ url()->current() }}">
+    <title>{{ $pageTitle }}</title>
+    <meta name="description" content="{{ $pageDescription }}">
 
-    @if(!empty($settings->seo_og_image))
-    <meta property="og:image" content="{{ asset($settings->seo_og_image) }}">
-    <meta name="twitter:image" content="{{ asset($settings->seo_og_image) }}">
+    @if($noindex)
+    <meta name="robots" content="noindex, nofollow">
     @endif
-    <meta property="og:title" content="{{ $settings->seo_title ?? 'مجمع بالديرما الطبي' }}">
-    <meta property="og:description" content="{{ $settings->seo_description ?? '' }}">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ url()->current() }}">
+
+    <link rel="canonical" href="{{ $pageCanonical }}">
+
+    @if($pageImage)
+    <meta property="og:image" content="{{ $pageImage }}">
+    <meta name="twitter:image" content="{{ $pageImage }}">
+    @endif
+    <meta property="og:title" content="{{ $pageTitle }}">
+    <meta property="og:description" content="{{ $pageDescription }}">
+    <meta property="og:type" content="{{ $ogType }}">
+    <meta property="og:url" content="{{ $pageCanonical }}">
     <meta property="og:site_name" content="{{ $settings->seo_title ?? 'مركز بالديرما' }}">
     <meta property="og:locale" content="ar_AR">
+    @if($ogType === 'article')
+        @if($articlePublishedTime)
+        <meta property="article:published_time" content="{{ $articlePublishedTime }}">
+        @endif
+        @if($articleModifiedTime)
+        <meta property="article:modified_time" content="{{ $articleModifiedTime }}">
+        @endif
+        @if($articleAuthor)
+        <meta property="article:author" content="{{ $articleAuthor }}">
+        @endif
+    @endif
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{{ $settings->seo_title ?? 'مركز بالديرما' }}">
-    <meta name="twitter:description" content="{{ $settings->seo_description ?? '' }}">
+    <meta name="twitter:title" content="{{ $pageTitle }}">
+    <meta name="twitter:description" content="{{ $pageDescription }}">
 
     @if(!empty($settings->favicon))
     <link rel="icon" href="{{ asset($settings->favicon) }}">
@@ -40,6 +72,9 @@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link rel="stylesheet" href="{{ asset('css/site.css') }}?v={{ @filemtime(public_path('css/site.css')) }}">
+
+    {{-- Per-page additions (JSON-LD structured data, etc.) via @push('head') --}}
+    @stack('head')
 </head>
 <body>
     @if(!empty($settings->gtm_id))

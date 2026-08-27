@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AboutBlock;
 use App\Models\BeforeAfterResult;
+use App\Models\BlogPost;
 use App\Models\BookingOption;
 use App\Models\Certification;
 use App\Models\Doctor;
@@ -45,6 +46,7 @@ class LandingController extends Controller
         $bookingOptions = BookingOption::where('is_active', true)->orderBy('sort_order')->get();
         $faqs = Faq::where('is_active', true)->orderBy('sort_order')->get();
         $beforeAfterResults = BeforeAfterResult::where('is_active', true)->orderBy('sort_order')->get();
+        $latestBlogPosts = BlogPost::published()->with('category')->orderByDesc('published_at')->limit(3)->get();
         $settings = SiteSetting::first() ?? new SiteSetting();
 
         return view('landing', compact(
@@ -65,6 +67,7 @@ class LandingController extends Controller
             'bookingOptions',
             'faqs',
             'beforeAfterResults',
+            'latestBlogPosts',
             'settings'
         ));
     }

@@ -39,6 +39,9 @@
           @case('faq')
             @include('sections.faq', ['sectionInfo' => $section])
             @break
+          @case('blog_teaser')
+            @include('sections.blog-teaser', ['sectionInfo' => $section])
+            @break
           @case('footer')
             @include('sections.footer')
             @break

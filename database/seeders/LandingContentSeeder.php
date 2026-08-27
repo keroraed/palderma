@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\AboutBlock;
+use App\Models\BlogCategory;
 use App\Models\BookingOption;
 use App\Models\Certification;
 use App\Models\Doctor;
@@ -49,7 +50,8 @@ class LandingContentSeeder extends Seeder
             ['key' => 'packages', 'eyebrow' => 'العروض والباقات', 'title' => 'باقات مميزة مصممة لتلبية احتياجاتك بأسعار تنافسية', 'description' => 'اختر الباقة المناسبة واستمتع بعناية فائقة وتوفير حقيقي.', 'is_visible' => true, 'sort_order' => 8],
             ['key' => 'booking', 'eyebrow' => 'احجز موعدك', 'title' => 'ابدأي رحلة العناية ببشرتكِ وجسمكِ اليوم', 'description' => 'سجلي بياناتك وسيقوم فريق الخدمة بالتواصل معكِ فوراً لتأكيد الموعد المناسب.', 'is_visible' => true, 'sort_order' => 9],
             ['key' => 'faq', 'eyebrow' => 'لديك سؤال؟', 'title' => 'الأسئلة الشائعة', 'is_visible' => true, 'sort_order' => 10],
-            ['key' => 'footer', 'title' => 'تذييل الصفحة', 'is_visible' => true, 'sort_order' => 11],
+            ['key' => 'blog_teaser', 'eyebrow' => 'من مدونتنا', 'title' => 'أحدث المقالات والنصائح الطبية', 'description' => 'نصائح موثوقة من فريقنا الطبي حول العناية بالبشرة وأحدث تقنيات التجميل والليزر.', 'is_visible' => true, 'sort_order' => 11],
+            ['key' => 'footer', 'title' => 'تذييل الصفحة', 'is_visible' => true, 'sort_order' => 12],
         ];
         foreach ($sections as $s) {
             Section::updateOrCreate(['key' => $s['key']], $s);
@@ -298,7 +300,8 @@ class LandingContentSeeder extends Seeder
             ['label' => 'الخدمات', 'href' => '#services', 'show_in_header' => true, 'show_in_footer' => true, 'is_cta' => false, 'sort_order' => 2],
             ['label' => 'الباقات', 'href' => '#packages', 'show_in_header' => true, 'show_in_footer' => true, 'is_cta' => false, 'sort_order' => 3],
             ['label' => 'اعتماداتنا', 'href' => '#trust', 'show_in_header' => true, 'show_in_footer' => false, 'is_cta' => false, 'sort_order' => 4],
-            ['label' => 'احجز الآن', 'href' => '#book', 'show_in_header' => true, 'show_in_footer' => true, 'is_cta' => true, 'sort_order' => 5],
+            ['label' => 'المدونة', 'href' => '/blog', 'show_in_header' => true, 'show_in_footer' => true, 'is_cta' => false, 'sort_order' => 5],
+            ['label' => 'احجز الآن', 'href' => '#book', 'show_in_header' => true, 'show_in_footer' => true, 'is_cta' => true, 'sort_order' => 6],
         ];
         foreach ($navs as $n) {
             NavLink::create(array_merge($n, ['is_active' => true]));
@@ -407,6 +410,25 @@ class LandingContentSeeder extends Seeder
             'title' => 'مجمع بالديرما الطبي',
             'tagline' => 'عيادة الجلدية والتجميل والليزر — كل ما تحتاجينه في مكان واحد',
         ]);
+
+        // 19. Blog Categories (taxonomy only — no articles; names mirror the
+        // clinic's real service areas, not fabricated content).
+        BlogCategory::truncate();
+        $blogCategories = [
+            ['name' => 'العناية بالبشرة', 'description' => 'نصائح وإرشادات طبية للعناية اليومية بالبشرة وحلول مشاكلها الشائعة.'],
+            ['name' => 'حقن التجميل والفيلر', 'description' => 'كل ما يخص حقن الفيلر والبوتوكس وعلاجات التجميل غير الجراحي.'],
+            ['name' => 'الليزر وإزالة الشعر', 'description' => 'أحدث تقنيات الليزر للعناية بالبشرة وإزالة الشعر.'],
+            ['name' => 'أخبار المركز', 'description' => 'آخر مستجدات وفعاليات مركز بالديرما الطبي.'],
+        ];
+        foreach ($blogCategories as $i => $category) {
+            BlogCategory::create([
+                'name' => $category['name'],
+                'slug' => BlogCategory::generateUniqueSlug($category['name']),
+                'description' => $category['description'],
+                'sort_order' => $i,
+                'is_active' => true,
+            ]);
+        }
 
         Schema::enableForeignKeyConstraints();
     }
