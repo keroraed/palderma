@@ -21,7 +21,7 @@ return new class extends Migration
             ['icon' => 'badge', 'image' => 'images/certificates/certificate-2.webp', 'title' => 'دورة معتمدة في تقنية خيوط الشد PDO Threads', 'subtitle' => 'Liverpool College for International Studies'],
             ['icon' => 'science', 'image' => 'images/certificates/certificate-5.png', 'title' => 'دورة متقدمة في تركيبات مستحضرات التجميل', 'subtitle' => 'الشبكة المصرية لدعم الصيادلة (EPSN)'],
             ['icon' => 'public', 'image' => 'images/certificates/certificate-6.png', 'title' => 'حضور المؤتمر العالمي للطب التجديدي', 'subtitle' => 'Global Regenerative Academy - دبي، الإمارات'],
-            ['icon' => 'health_and_safety', 'image' => 'images/certificates/certificate-7.png', 'title' => 'اعتماد فن حقن الفيلر (Art of Filler Injection)', 'subtitle' => 'الجمعية الأمريكية للتعليم الطبي المستمر (AACME)'],
+            ['icon' => 'health_and_safety', 'image' => 'images/certificates/certificate-7.webp', 'title' => 'اعتماد فن حقن الفيلر (Art of Filler Injection)', 'subtitle' => 'الجمعية الأمريكية للتعليم الطبي المستمر (AACME)'],
         ];
 
         foreach ($certs as $i => $cert) {

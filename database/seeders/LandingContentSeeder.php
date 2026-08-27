@@ -184,7 +184,7 @@ class LandingContentSeeder extends Seeder
         Certification::create(['icon' => 'badge', 'image' => 'images/certificates/certificate-2.webp', 'title' => 'دورة معتمدة في تقنية خيوط الشد PDO Threads', 'subtitle' => 'Liverpool College for International Studies', 'sort_order' => 2, 'is_active' => true]);
         Certification::create(['icon' => 'science', 'image' => 'images/certificates/certificate-5.png', 'title' => 'دورة متقدمة في تركيبات مستحضرات التجميل', 'subtitle' => 'الشبكة المصرية لدعم الصيادلة (EPSN)', 'sort_order' => 3, 'is_active' => true]);
         Certification::create(['icon' => 'public', 'image' => 'images/certificates/certificate-6.png', 'title' => 'حضور المؤتمر العالمي للطب التجديدي', 'subtitle' => 'Global Regenerative Academy - دبي، الإمارات', 'sort_order' => 4, 'is_active' => true]);
-        Certification::create(['icon' => 'health_and_safety', 'image' => 'images/certificates/certificate-7.png', 'title' => 'اعتماد فن حقن الفيلر (Art of Filler Injection)', 'subtitle' => 'الجمعية الأمريكية للتعليم الطبي المستمر (AACME)', 'sort_order' => 5, 'is_active' => true]);
+        Certification::create(['icon' => 'health_and_safety', 'image' => 'images/certificates/certificate-7.webp', 'title' => 'اعتماد فن حقن الفيلر (Art of Filler Injection)', 'subtitle' => 'الجمعية الأمريكية للتعليم الطبي المستمر (AACME)', 'sort_order' => 5, 'is_active' => true]);
 
         // 7. Testimonials
         Testimonial::truncate();
