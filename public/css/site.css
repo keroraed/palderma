@@ -579,6 +579,23 @@ header.site-header.scrolled.menu-open {
     margin: 34px 0 14px;
 }
 
+.blog-article-content h4 {
+    font-size: clamp(17px, 2vw, 19px);
+    font-weight: 700;
+    color: #2a1620;
+    line-height: 1.45;
+    margin: 28px 0 12px;
+}
+
+.blog-article-content h5,
+.blog-article-content h6 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #6c1830;
+    line-height: 1.5;
+    margin: 24px 0 10px;
+}
+
 .blog-article-content p { margin: 0 0 22px; }
 
 .blog-article-content ul,
@@ -625,6 +642,38 @@ header.site-header.scrolled.menu-open {
     border-radius: 16px;
     display: block;
     margin: 28px auto;
+}
+
+.blog-article-content code {
+    direction: ltr;
+    unicode-bidi: embed;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+    font-size: 0.88em;
+    background: #faf0f3;
+    color: #96123c;
+    padding: 2px 7px;
+    border-radius: 6px;
+}
+
+.blog-article-content pre {
+    direction: ltr;
+    text-align: left;
+    margin: 28px 0;
+    padding: 20px 22px;
+    background: #2a1620;
+    border-radius: 16px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.blog-article-content pre code {
+    background: none;
+    color: #f5e8ec;
+    padding: 0;
+    border-radius: 0;
+    font-size: 14.5px;
+    line-height: 1.7;
+    white-space: pre;
 }
 
 .blog-article-content table {
@@ -735,4 +784,6 @@ header.site-header.scrolled.menu-open {
     .blog-article-content h2 { margin: 34px 0 14px !important; }
     .blog-article-content h3 { margin: 28px 0 12px !important; }
     .blog-article-content blockquote { padding: 16px 20px !important; font-size: 16px !important; }
+    .blog-article-content pre { padding: 16px 18px !important; }
+    .blog-article-content pre code { font-size: 13.5px !important; }
 }

@@ -93,10 +93,13 @@ class BlogPostResource extends Resource
                                     ->fileAttachmentsDirectory('images/blog/attachments')
                                     ->fileAttachmentsVisibility('public')
                                     ->toolbarButtons([
-                                        ['bold', 'italic', 'underline', 'strike', 'link'],
-                                        ['h2', 'h3'],
+                                        ['bold', 'italic', 'underline', 'strike', 'code', 'link'],
+                                        // h1 is deliberately excluded: the post title above is
+                                        // already rendered as the page's single <h1>, and a second
+                                        // one inside the body would break heading hierarchy/SEO.
+                                        ['h2', 'h3', 'h4', 'h5', 'h6'],
                                         ['alignStart', 'alignCenter', 'alignEnd'],
-                                        ['blockquote', 'bulletList', 'orderedList', 'attachFiles'],
+                                        ['blockquote', 'codeBlock', 'bulletList', 'orderedList', 'attachFiles'],
                                         ['table', 'horizontalRule'],
                                         ['undo', 'redo'],
                                     ])
