@@ -8,6 +8,7 @@ use App\Models\Service;
 use Filament\Actions;
 use Filament\Forms;
 use Filament\Schemas\Components\Utilities\Get;
+use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -21,11 +22,13 @@ class ServiceResource extends Resource
 
     protected static \UnitEnum|string|null $navigationGroup = 'محتوى الموقع';
 
-    protected static ?string $navigationLabel = 'الخدمات';
+    protected static ?string $navigationLabel = 'الخدمات الرئيسية';
 
     protected static ?string $modelLabel = 'خدمة';
 
-    protected static ?string $pluralModelLabel = 'الخدمات';
+    protected static ?string $pluralModelLabel = 'الخدمات الرئيسية';
+
+    protected static ?int $navigationSort = 5;
 
     public static function form(Schema $schema): Schema
     {
@@ -34,6 +37,25 @@ class ServiceResource extends Resource
                 Forms\Components\TextInput::make('title')
                     ->label('عنوان الخدمة')
                     ->required()
+                    ->live(onBlur: true)
+                    ->afterStateUpdated(function (Get $get, Set $set, ?string $state, ?string $old) {
+                        $currentSlug = (string) $get('slug');
+                        if ($currentSlug === '' || $currentSlug === Service::generateUniqueSlug((string) $old)) {
+                            $set('slug', $state ? Service::generateUniqueSlug($state) : null);
+                        }
+                    })
+                    ->columnSpanFull(),
+                Forms\Components\TextInput::make('slug')
+                    ->label('الرابط المختصر (Slug)')
+                    ->helperText('يُستخدم في رابط صفحة الخدمة: /services/الرابط-المختصر')
+                    ->required()
+                    ->unique(ignoreRecord: true)
+                    ->rule('regex:/^[\p{L}\p{N}-]+$/u')
+                    ->validationMessages(['regex' => 'الرابط المختصر يجب أن يحتوي على حروف وأرقام وشرطات فقط، بدون مسافات.'])
+                    ->columnSpanFull(),
+                Forms\Components\TextInput::make('hero_badge')
+                    ->label('شارة الهيرو الترويجية (Hero Badge)')
+                    ->placeholder('مثال: ✨ نخبة استشاريي التجميل وحقن الفيلر')
                     ->columnSpanFull(),
                 Forms\Components\Textarea::make('description')
                     ->label('الوصف (يظهر في بطاقة الخدمة المختصرة)')
@@ -41,7 +63,7 @@ class ServiceResource extends Resource
                     ->rows(2)
                     ->columnSpanFull(),
                 Forms\Components\Textarea::make('details')
-                    ->label('تفاصيل الخدمة (تظهر عند الضغط على البطاقة لعرض المزيد)')
+                    ->label('تفاصيل الخدمة (تظهر في النافذة المنبثقة وصفحة الخدمة)')
                     ->rows(3)
                     ->columnSpanFull(),
                 Forms\Components\Repeater::make('features')
@@ -52,7 +74,7 @@ class ServiceResource extends Resource
                     ->addActionLabel('إضافة عنصر')
                     ->columnSpanFull(),
                 Forms\Components\Textarea::make('details_note')
-                    ->label('ملاحظة ختامية (اختياري، تظهر أسفل القائمة النقطية)')
+                    ->label('ملاحظة ختامية / توصيات الطبيب (تظهر أسفل القائمة النقطية)')
                     ->rows(2)
                     ->columnSpanFull(),
                 Forms\Components\Radio::make('icon_type')
@@ -82,6 +104,14 @@ class ServiceResource extends Resource
                     ->searchable()
                     ->native(false)
                     ->columnSpanFull(),
+                Forms\Components\TextInput::make('meta_title')
+                    ->label('عنوان السيو (Meta Title)')
+                    ->placeholder('اتركه فارغاً للاعتماد على العنوان الافتراضي')
+                    ->columnSpanFull(),
+                Forms\Components\Textarea::make('meta_description')
+                    ->label('وصف السيو (Meta Description)')
+                    ->rows(2)
+                    ->columnSpanFull(),
                 Forms\Components\TextInput::make('sort_order')
                     ->label('ترتيب العرض')
                     ->numeric()
@@ -99,6 +129,15 @@ class ServiceResource extends Resource
                 Tables\Columns\TextColumn::make('title')
                     ->label('العنوان')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('slug')
+                    ->label('الرابط')
+                    ->fontFamily('mono')
+                    ->copyable(),
+                Tables\Columns\TextColumn::make('sub_services_count')
+                    ->label('الخدمات الفرعية')
+                    ->counts('subServices')
+                    ->badge()
+                    ->color('success'),
                 Tables\Columns\TextColumn::make('icon_type')
                     ->label('نوع الأيقونة')
                     ->badge(),

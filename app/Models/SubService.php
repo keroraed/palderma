@@ -4,26 +4,23 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
-class Service extends Model
+class SubService extends Model
 {
     use SoftDeletes;
 
     protected $fillable = [
+        'service_id',
         'title',
         'slug',
+        'badge',
         'description',
-        'details',
+        'duration',
+        'target_area',
         'features',
-        'details_note',
-        'icon_type',
-        'icon_value',
-        'hero_badge',
-        'meta_title',
-        'meta_description',
+        'aftercare_tips',
         'booking_option_id',
         'sort_order',
         'is_active',
@@ -35,9 +32,9 @@ class Service extends Model
         'sort_order' => 'integer',
     ];
 
-    public function getRouteKeyName(): string
+    public function service(): BelongsTo
     {
-        return 'slug';
+        return $this->belongsTo(Service::class);
     }
 
     public function bookingOption(): BelongsTo
@@ -45,20 +42,10 @@ class Service extends Model
         return $this->belongsTo(BookingOption::class);
     }
 
-    public function subServices(): HasMany
-    {
-        return $this->hasMany(SubService::class)->orderBy('sort_order');
-    }
-
-    public function activeSubServices(): HasMany
-    {
-        return $this->hasMany(SubService::class)->where('is_active', true)->orderBy('sort_order');
-    }
-
     public static function generateUniqueSlug(string $title, ?int $ignoreId = null): string
     {
         $base = Str::slug($title, '-', null);
-        $base = $base !== '' ? $base : 'service';
+        $base = $base !== '' ? $base : 'sub-service';
         $slug = $base;
         $i = 2;
 

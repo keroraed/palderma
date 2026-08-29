@@ -381,12 +381,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 waLabel.textContent = `احجزي موعدك الآن لخدمة "${service.title}"`;
 
-                // Point the modal's share buttons at this specific service. There
-                // is no per-service page, so share the services listing anchored
-                // by id — enough for the link to land somewhere meaningful.
+                const servicePath = service.slug ? `/services/${service.slug}` : `/services/${service.id}`;
+
+                const moreDetailsLink = serviceModal.querySelector('[data-service-modal-more-details]');
+                if (moreDetailsLink) {
+                    moreDetailsLink.setAttribute('href', servicePath);
+                }
+
+                // Point the modal's share buttons at this specific service's dedicated page.
                 const shareRoot = serviceModal.querySelector('[data-share-root]');
                 if (shareRoot) {
-                    shareRoot.setAttribute('data-share-url', `${window.location.origin}/services#service-${service.id}`);
+                    shareRoot.setAttribute('data-share-url', `${window.location.origin}${servicePath}`);
                     shareRoot.setAttribute('data-share-title', `${service.title} — مركز بالديرما`);
                 }
 

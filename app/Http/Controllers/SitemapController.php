@@ -33,6 +33,16 @@ class SitemapController extends Controller
             'priority' => '0.9',
         ];
 
+        // Per-service detail pages with their subservices
+        foreach (Service::where('is_active', true)->get() as $service) {
+            $urls[] = [
+                'loc' => route('services.show', $service->slug ?: $service->id),
+                'lastmod' => optional($service->updated_at)->toAtomString(),
+                'changefreq' => 'weekly',
+                'priority' => '0.85',
+            ];
+        }
+
         $urls[] = [
             'loc' => route('blog.index'),
             'lastmod' => optional(BlogPost::published()->max('published_at'))

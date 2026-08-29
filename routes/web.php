@@ -6,6 +6,7 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\LegalPageController;
 use App\Http\Controllers\LinkHubController;
+use App\Http\Controllers\ServiceDetailController;
 use App\Http\Controllers\SitemapController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,7 @@ Route::domain('www.palderma.com')->any('/{any?}', $redirectToPrimaryDomain)->whe
 
 Route::get('/', LandingController::class)->name('landing');
 Route::get('/services', AllServicesController::class)->name('services.all');
+Route::get('/services/{slug}', [ServiceDetailController::class, 'show'])->name('services.show');
 Route::post('/booking', [BookingController::class, 'store'])->name('booking.store');
 Route::get('/privacy-policy', [LegalPageController::class, 'privacy'])->name('legal.privacy');
 Route::get('/terms', [LegalPageController::class, 'terms'])->name('legal.terms');

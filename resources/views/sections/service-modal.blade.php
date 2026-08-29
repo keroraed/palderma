@@ -18,10 +18,17 @@
 
     <p data-service-modal-note style="font-size:14.5px;line-height:1.8;font-weight:300;color:#5a4650;margin:0 0 26px"></p>
 
-    <a id="btn-whatsapp-service" href="/#book" data-book-service data-service-modal-whatsapp class="btn-hover-burgundy" style="display:flex;align-items:center;justify-content:center;gap:10px;background:#6c1830;color:#fff;padding:15px;border-radius:100px;font-weight:700;font-size:15.5px;box-shadow:0 14px 30px -10px rgba(108,24,48,.5)">
-      <span class="material-symbols-outlined" style="font-size:20px">calendar_month</span>
-      <span data-service-modal-whatsapp-label>احجزي موعدك الآن</span>
-    </a>
+    <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:6px">
+      <a id="btn-whatsapp-service" href="/#book" data-book-service data-service-modal-whatsapp class="btn-hover-burgundy" style="display:flex;align-items:center;justify-content:center;gap:10px;background:#6c1830;color:#fff;padding:15px;border-radius:100px;font-weight:700;font-size:15.5px;box-shadow:0 14px 30px -10px rgba(108,24,48,.5)">
+        <span class="material-symbols-outlined" style="font-size:20px">calendar_month</span>
+        <span data-service-modal-whatsapp-label>احجزي موعدك الآن</span>
+      </a>
+
+      <a data-service-modal-more-details href="#" style="display:flex;align-items:center;justify-content:center;gap:8px;background:#faf0f3;color:#6c1830;border:1.5px solid rgba(108,24,48,.2);padding:14px;border-radius:100px;font-weight:700;font-size:15px;transition:all .3s ease">
+        <span>المزيد من التفاصيل والخيارات الفرعية</span>
+        <span class="material-symbols-outlined" style="font-size:18px">arrow_back</span>
+      </a>
+    </div>
 
     <div style="margin-top:22px;padding-top:20px;border-top:1px solid rgba(108,24,48,.1)">
       <x-share-buttons data-service-modal-share label="شارك هذه الخدمة" :compact="true" />
