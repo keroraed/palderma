@@ -596,4 +596,36 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // ---- Blog table of contents ----
+    // The CSS `scroll-margin-top` on headings handles the simple case, but the
+    // header is `sticky` (in the flow) until 260px and `fixed` (out of it) after,
+    // so a jump that crosses that threshold shifts the whole page up by the
+    // header's height and drops the heading underneath it. Scrolling manually
+    // lets us subtract that shift when it's about to happen.
+    const tocLinks = document.querySelectorAll('.blog-toc-list a[href^="#"]');
+
+    if (header && tocLinks.length > 0) {
+        const HEADER_GAP = 124;
+        const SCROLLED_AT = 260;
+
+        tocLinks.forEach((link) => {
+            link.addEventListener('click', (e) => {
+                const hash = link.getAttribute('href');
+                const target = document.getElementById(decodeURIComponent(hash).slice(1));
+                if (!target) return;
+
+                e.preventDefault();
+
+                let top = target.getBoundingClientRect().top + window.scrollY - HEADER_GAP;
+
+                if (!header.classList.contains('scrolled') && top > SCROLLED_AT) {
+                    top -= header.offsetHeight;
+                }
+
+                window.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' });
+                history.pushState(null, '', hash);
+            });
+        });
+    }
+
 });

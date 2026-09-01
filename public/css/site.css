@@ -563,12 +563,102 @@ header.site-header.scrolled.menu-open {
     color: #4a3640;
 }
 
+/* ---- Table of contents ---- */
+.blog-toc {
+    background: #fff;
+    border: 1px solid rgba(108, 24, 48, .12);
+    border-radius: 20px;
+    padding: 22px 26px 24px;
+    margin: 0 0 40px;
+    box-shadow: 0 10px 30px -18px rgba(108, 24, 48, .18);
+}
+
+.blog-toc-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 900;
+    color: #6c1830;
+    margin: 0 0 14px;
+}
+
+.blog-toc-title .material-symbols-outlined {
+    font-size: 20px;
+}
+
+.blog-toc-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: toc;
+}
+
+.blog-toc-list li {
+    counter-increment: toc;
+    margin: 0 0 9px;
+    line-height: 1.6;
+}
+
+.blog-toc-list li:last-child {
+    margin-bottom: 0;
+}
+
+.blog-toc-list a {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 9px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #4a3640;
+    text-decoration: none;
+    transition: color .2s ease;
+}
+
+.blog-toc-list a::before {
+    content: counter(toc);
+    flex-shrink: 0;
+    min-width: 22px;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #96123c;
+    font-variant-numeric: tabular-nums;
+}
+
+.blog-toc-list a:hover,
+.blog-toc-list a:focus-visible {
+    color: #96123c;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.blog-toc-sub {
+    padding-inline-start: 22px;
+}
+
+.blog-toc-sub a {
+    font-size: 14.2px;
+    font-weight: 400;
+    color: #6a5660;
+}
+
 .blog-article-content h2 {
     font-size: clamp(22px, 3vw, 27px);
     font-weight: 900;
     color: #2a1620;
     line-height: 1.35;
     margin: 42px 0 18px;
+}
+
+/* Clearance for the floating header when a heading is jumped to natively —
+   opening a shared "#heading" link, or clicking the contents list with JS
+   disabled. Both of those start from the top of the page, where the header is
+   still in the flow and will pull the content up by its own height once the
+   scroll passes 260px, so this budgets for that shift as well as the header
+   itself. Clicks with JS enabled are positioned precisely in site.js instead. */
+.blog-article-content h2[id],
+.blog-article-content h3[id] {
+    scroll-margin-top: 200px;
 }
 
 .blog-article-content h3 {
@@ -786,4 +876,6 @@ header.site-header.scrolled.menu-open {
     .blog-article-content blockquote { padding: 16px 20px !important; font-size: 16px !important; }
     .blog-article-content pre { padding: 16px 18px !important; }
     .blog-article-content pre code { font-size: 13.5px !important; }
+    .blog-toc { padding: 18px 20px 20px !important; margin-bottom: 32px !important; }
+    .blog-toc-sub { padding-inline-start: 16px !important; }
 }

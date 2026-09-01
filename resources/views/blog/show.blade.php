@@ -77,8 +77,32 @@
       </div>
       @endif
 
+      @php
+        // One pass produces both the body HTML (with ids added to each heading)
+        // and the matching heading list, so the anchors can never fall out of sync.
+        $rendered = $post->contentWithTableOfContents();
+      @endphp
+
+      {{-- Shown only when there are enough headings to be worth navigating;
+           on a two-heading article a TOC is noise rather than help. --}}
+      @if(count($rendered['toc']) >= 3)
+      <nav class="blog-toc" aria-labelledby="blog-toc-title">
+        <h2 class="blog-toc-title" id="blog-toc-title">
+          <span class="material-symbols-outlined" aria-hidden="true">list</span>
+          محتويات المقال
+        </h2>
+        <ol class="blog-toc-list">
+          @foreach($rendered['toc'] as $item)
+          <li @class(['blog-toc-sub' => $item['level'] === 3])>
+            <a href="#{{ $item['id'] }}">{{ $item['text'] }}</a>
+          </li>
+          @endforeach
+        </ol>
+      </nav>
+      @endif
+
       <div class="blog-article-content">
-        {!! $post->sanitized_content !!}
+        {!! $rendered['html'] !!}
       </div>
 
       @if(!empty($post->gallery))
