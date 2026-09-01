@@ -83,26 +83,23 @@ class BlogPostResource extends Resource
                                     ->directory('images/blog')
                                     ->required(fn (Get $get): bool => $get('status') === BlogPost::STATUS_PUBLISHED)
                                     ->columnSpanFull(),
+                                \Filament\Schemas\Components\Actions::make([
+                                    Actions\Action::make('previewContent')
+                                        ->label('معاينة الشكل النهائي')
+                                        ->icon('heroicon-o-eye')
+                                        ->modalHeading('معاينة شكل المقال')
+                                        ->modalDescription('هكذا سيظهر النص للزوار بخطوط وتنسيق صفحة المقال الفعلية.')
+                                        ->modalSubmitAction(false)
+                                        ->modalCancelActionLabel('إغلاق')
+                                        ->modalWidth('4xl')
+                                        ->modalContent(fn (Get $get) => view('filament.blog-content-preview', [
+                                            'content' => (string) $get('content'),
+                                        ])),
+                                ])
+                                    ->columnSpanFull(),
                                 Forms\Components\RichEditor::make('content')
                                     ->label('محتوى المقال')
                                     ->required(fn (Get $get): bool => $get('status') === BlogPost::STATUS_PUBLISHED)
-                                    // Live preview: renders the current editor content through the
-                                    // exact same sanitizer and `.blog-article-content` stylesheet the
-                                    // public article page uses, inside an iframe so the site CSS can
-                                    // be loaded as-is without leaking into the admin panel's styles.
-                                    ->hintAction(
-                                        Actions\Action::make('previewContent')
-                                            ->label('معاينة الشكل النهائي')
-                                            ->icon('heroicon-o-eye')
-                                            ->modalHeading('معاينة شكل المقال')
-                                            ->modalDescription('هكذا سيظهر النص للزوار بخطوط وتنسيق صفحة المقال الفعلية.')
-                                            ->modalSubmitAction(false)
-                                            ->modalCancelActionLabel('إغلاق')
-                                            ->modalWidth('4xl')
-                                            ->modalContent(fn (Get $get) => view('filament.blog-content-preview', [
-                                                'content' => (string) $get('content'),
-                                            ]))
-                                    )
                                     // BlogPost doesn't implement Filament's HasRichContent contract,
                                     // so this uses the RichEditor's simple/direct attachment path
                                     // (HasFileAttachments trait) rather than the model-integrated
@@ -124,6 +121,36 @@ class BlogPostResource extends Resource
                                         ['table', 'horizontalRule'],
                                         ['undo', 'redo'],
                                     ])
+                                    ->columnSpanFull(),
+                                Forms\Components\Textarea::make('html_import')
+                                    ->label('لصق كود HTML جاهز (اختياري)')
+                                    // Not a real column — a staging area only. It can't share the
+                                    // 'content' key with the editor above: Filament keeps a
+                                    // visibility-toggled field mounted in the DOM (just hidden), so
+                                    // two fields with the same name end up bound to the same id at
+                                    // once and corrupt each other's state. Loading is an explicit,
+                                    // one-way action instead: paste here, click "load", and the
+                                    // result replaces whatever was in the editor above.
+                                    ->dehydrated(false)
+                                    ->rows(10)
+                                    ->extraInputAttributes(['style' => 'font-family: ui-monospace, Menlo, Consolas, monospace; direction: ltr; text-align: left; font-size: 13px'])
+                                    ->helperText('لمن يكتب المقال جاهزاً بصيغة HTML بدلاً من المحرر المرئي أعلاه. الصقي الكود هنا ثم اضغطي "تحميل داخل المحرر" — سيحل محل أي محتوى موجود حالياً في المحرر. يُنقّى من أي كود خطير (سكربتات، إلخ) بنفس طريقة المحرر المرئي تماماً، فلا فرق في الأمان.')
+                                    ->hintAction(
+                                        Actions\Action::make('loadHtmlImport')
+                                            ->label('تحميل داخل المحرر')
+                                            ->icon('heroicon-o-arrow-up-tray')
+                                            ->requiresConfirmation()
+                                            ->modalDescription('سيستبدل هذا محتوى المحرر المرئي الحالي بالكود الملصوق. لا يمكن التراجع عن هذا إلا بإعادة كتابة المحتوى القديم يدوياً.')
+                                            ->action(function (Get $get, Set $set) {
+                                                $set('content', (string) $get('html_import'));
+                                                $set('html_import', null);
+
+                                                \Filament\Notifications\Notification::make()
+                                                    ->title('تم تحميل الكود داخل المحرر')
+                                                    ->success()
+                                                    ->send();
+                                            })
+                                    )
                                     ->columnSpanFull(),
                                 Forms\Components\Repeater::make('gallery')
                                     ->label('معرض صور إضافية (اختياري)')
