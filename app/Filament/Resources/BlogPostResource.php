@@ -69,19 +69,40 @@ class BlogPostResource extends Resource
                                     ->helperText('يظهر في بطاقة المقال بصفحة المدونة، وكوصف احتياطي لمحركات البحث إن لم يُحدَّد وصف SEO مخصص.')
                                     ->rows(2)
                                     ->maxLength(300)
-                                    ->required()
+                                    // Required only to publish — a draft can be saved half-finished
+                                    // and completed later. Same for the featured image and content.
+                                    ->required(fn (Get $get): bool => $get('status') === BlogPost::STATUS_PUBLISHED)
                                     ->columnSpanFull(),
                                 Forms\Components\FileUpload::make('featured_image')
                                     ->label('الصورة البارزة')
+                                    ->helperText('المقاس المثالي 1600×1000 بكسل (نسبة 16:10). صيغة WebP أو JPEG، ويُفضّل أن يكون حجم الملف أقل من 300 كيلوبايت لسرعة تحميل الصفحة. الصورة تُقصّ تلقائياً بنسب مختلفة حسب مكان ظهورها (بطاقة المقال، المقالات المميزة، الصفحة الرئيسية)، لذا اجعلي العنصر المهم في منتصف الصورة.')
                                     ->image()
                                     ->imageEditor()
+                                    ->maxSize(2048)
                                     ->disk('public_assets')
                                     ->directory('images/blog')
-                                    ->required()
+                                    ->required(fn (Get $get): bool => $get('status') === BlogPost::STATUS_PUBLISHED)
                                     ->columnSpanFull(),
                                 Forms\Components\RichEditor::make('content')
                                     ->label('محتوى المقال')
-                                    ->required()
+                                    ->required(fn (Get $get): bool => $get('status') === BlogPost::STATUS_PUBLISHED)
+                                    // Live preview: renders the current editor content through the
+                                    // exact same sanitizer and `.blog-article-content` stylesheet the
+                                    // public article page uses, inside an iframe so the site CSS can
+                                    // be loaded as-is without leaking into the admin panel's styles.
+                                    ->hintAction(
+                                        Actions\Action::make('previewContent')
+                                            ->label('معاينة الشكل النهائي')
+                                            ->icon('heroicon-o-eye')
+                                            ->modalHeading('معاينة شكل المقال')
+                                            ->modalDescription('هكذا سيظهر النص للزوار بخطوط وتنسيق صفحة المقال الفعلية.')
+                                            ->modalSubmitAction(false)
+                                            ->modalCancelActionLabel('إغلاق')
+                                            ->modalWidth('4xl')
+                                            ->modalContent(fn (Get $get) => view('filament.blog-content-preview', [
+                                                'content' => (string) $get('content'),
+                                            ]))
+                                    )
                                     // BlogPost doesn't implement Filament's HasRichContent contract,
                                     // so this uses the RichEditor's simple/direct attachment path
                                     // (HasFileAttachments trait) rather than the model-integrated
@@ -110,7 +131,9 @@ class BlogPostResource extends Resource
                                     ->schema([
                                         Forms\Components\FileUpload::make('image')
                                             ->label('الصورة')
+                                            ->helperText('المقاس المثالي 1200×900 بكسل (نسبة 4:3)، أقل من 250 كيلوبايت.')
                                             ->image()
+                                            ->maxSize(2048)
                                             ->disk('public_assets')
                                             ->directory('images/blog/gallery')
                                             ->required(),

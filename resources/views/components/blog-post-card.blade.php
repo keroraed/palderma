@@ -1,7 +1,9 @@
 @props(['post'])
 <article class="blog-card card-hover-lift">
   <a href="{{ route('blog.show', $post) }}" class="blog-card-image" aria-hidden="true" tabindex="-1">
+    @if($post->featured_image)
     <img src="{{ asset($post->featured_image) }}" alt="{{ $post->title }}" loading="lazy" decoding="async">
+    @endif
   </a>
   <div class="blog-card-body">
     @if($post->category)

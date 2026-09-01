@@ -71,9 +71,11 @@
         </span>
       </div>
 
+      @if($post->featured_image)
       <div style="border-radius:24px;overflow:hidden;margin-bottom:36px;box-shadow:0 20px 45px -20px rgba(108,24,48,.35)">
         <img src="{{ asset($post->featured_image) }}" alt="{{ $post->title }}" style="width:100%;height:auto;display:block" fetchpriority="high" decoding="async">
       </div>
+      @endif
 
       <div class="blog-article-content">
         {!! $post->sanitized_content !!}
