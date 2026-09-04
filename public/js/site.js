@@ -264,7 +264,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         window.dataLayer.push({ event: 'booking_success' });
                     }
                 } else {
-                    throw new Error(data.message || 'حدث خطأ أثناء الإرسال. يرجى المحاولة لاحقاً.');
+                    // Prefer the specific field error (e.g. "مواعيد العيادة من
+                    // الساعة 9 صباحاً حتى 5 مساءً") over Laravel's generic
+                    // 422 message, which is the same for every validation
+                    // failure regardless of which field or rule caused it.
+                    const firstFieldError = data.errors ? Object.values(data.errors)[0]?.[0] : null;
+                    throw new Error(firstFieldError || data.message || 'حدث خطأ أثناء الإرسال. يرجى المحاولة لاحقاً.');
                 }
             } catch (error) {
                 if (alertBox) {
@@ -281,6 +286,52 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         });
+    }
+
+    // --- 6b. Booking date/time: clinic hours (9am-5pm) + no picking a time
+    // that's already passed today. Mirrors the server-side rules in
+    // BookingController — this is convenience so most visitors never see a
+    // validation error, not the actual enforcement, which stays server-side.
+    const bookingDateInput = document.querySelector('[data-booking-date]');
+    const bookingTimeInput = document.querySelector('[data-booking-time]');
+
+    if (bookingDateInput && bookingTimeInput) {
+        const OPENING_TIME = '09:00';
+        const CLOSING_TIME = '17:00';
+
+        const pad = (n) => String(n).padStart(2, '0');
+        const todayStr = () => {
+            const d = new Date();
+            return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+        };
+
+        bookingDateInput.setAttribute('min', todayStr());
+
+        const syncTimeMin = () => {
+            const isToday = bookingDateInput.value === todayStr();
+
+            if (!isToday) {
+                bookingTimeInput.min = OPENING_TIME;
+                return;
+            }
+
+            // Round up to the next 30-minute step, matching the time input's
+            // own step="1800", so the first selectable slot is never a time
+            // that's already passed by the time the visitor picks it.
+            const now = new Date();
+            const minutes = now.getMinutes() <= 30 ? 30 : 60;
+            const rounded = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), minutes);
+            const floor = `${pad(rounded.getHours())}:${pad(rounded.getMinutes())}`;
+
+            bookingTimeInput.min = floor > OPENING_TIME ? floor : OPENING_TIME;
+
+            if (bookingTimeInput.value && bookingTimeInput.value < bookingTimeInput.min) {
+                bookingTimeInput.value = '';
+            }
+        };
+
+        bookingDateInput.addEventListener('change', syncTimeMin);
+        syncTimeMin();
     }
 
     // --- 7. "Book This Service" -> pre-select in booking form ---

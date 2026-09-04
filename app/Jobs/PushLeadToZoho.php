@@ -44,7 +44,23 @@ class PushLeadToZoho implements ShouldQueue
             $serviceField = config('zoho.fields.service', 'Service');
             $dateField = config('zoho.fields.preferred_date', 'Preferred_Date');
             $timeField = config('zoho.fields.submission_time', 'Website_Submission_Time');
+            // No dedicated Zoho field for the preferred appointment time
+            // exists by default — Preferred_Date is a plain Date field in
+            // most Zoho setups and can't hold a time component. If the
+            // client adds a custom field for it later, set
+            // ZOHO_FIELD_PREFERRED_TIME and it's sent as its own field too;
+            // until then it's still visible to reception either way, in
+            // Description below.
+            $preferredTimeField = config('zoho.fields.preferred_time');
             $companyFallback = config('zoho.company_fallback', 'مجمع بالديرما الطبي');
+
+            $description = $this->booking->notes;
+
+            if ($this->booking->preferred_date && $this->booking->preferred_time) {
+                $preferredLine = 'الموعد المفضل: ' . $this->booking->preferred_date->format('Y-m-d')
+                    . ' — الساعة ' . $this->booking->preferred_time;
+                $description = $description ? $preferredLine . "\n\n" . $description : $preferredLine;
+            }
 
             $payload = [
                 'data' => [
@@ -54,12 +70,15 @@ class PushLeadToZoho implements ShouldQueue
                         'Phone' => $this->booking->phone,
                         'Mobile' => $this->booking->phone,
                         'Email' => $this->booking->email,
-                        'Description' => $this->booking->notes,
+                        'Description' => $description,
                         'Lead_Source' => 'Website',
                         $serviceField => $this->booking->service_name,
                         $dateField => $this->booking->preferred_date ? $this->booking->preferred_date->format('Y-m-d') : null,
                         $timeField => $this->booking->created_at ? $this->booking->created_at->toIso8601String() : now()->toIso8601String(),
-                    ]
+                        ...($preferredTimeField && $this->booking->preferred_time
+                            ? [$preferredTimeField => $this->booking->preferred_time]
+                            : []),
+                    ],
                 ],
                 'trigger' => ['workflow']
             ];

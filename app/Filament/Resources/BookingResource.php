@@ -42,7 +42,10 @@ class BookingResource extends Resource
                     ->label('البريد الإلكتروني')
                     ->readOnly(),
                 Forms\Components\DatePicker::make('preferred_date')
-                    ->label('الموعد المفضل')
+                    ->label('تاريخ الموعد المفضل')
+                    ->readOnly(),
+                Forms\Components\TextInput::make('preferred_time')
+                    ->label('وقت الموعد المفضل')
                     ->readOnly(),
                 Forms\Components\TextInput::make('service_name')
                     ->label('الخدمة / الباقة')
@@ -100,7 +103,9 @@ class BookingResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('preferred_date')
                     ->label('الموعد')
-                    ->date('Y-m-d')
+                    ->formatStateUsing(fn ($record) => $record->preferred_date
+                        ? $record->preferred_date->format('Y-m-d') . ($record->preferred_time ? ' — ' . $record->preferred_time : '')
+                        : '—')
                     ->sortable(),
                 Tables\Columns\SelectColumn::make('status')
                     ->label('حالة الحجز')

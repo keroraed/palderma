@@ -15,6 +15,7 @@ class Booking extends Model
         'phone',
         'email',
         'preferred_date',
+        'preferred_time',
         'service_option_id',
         'service_name',
         'notes',

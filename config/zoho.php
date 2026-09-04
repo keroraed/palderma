@@ -16,5 +16,10 @@ return [
         'service' => env('ZOHO_FIELD_SERVICE', 'Service'),
         'preferred_date' => env('ZOHO_FIELD_PREFERRED_DATE', 'Preferred_Date'),
         'submission_time' => env('ZOHO_FIELD_SUBMISSION_TIME', 'Website_Submission_Time'),
+        // Unset by default — Preferred_Date is typically a plain Date field
+        // in Zoho with no room for a time component. Set this only if a
+        // custom field for it is added on the Zoho side; until then the
+        // preferred time still reaches Zoho inside the Description field.
+        'preferred_time' => env('ZOHO_FIELD_PREFERRED_TIME'),
     ],
 ];

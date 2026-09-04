@@ -74,9 +74,17 @@
           </div>
         </div>
 
-        <div style="margin-bottom:20px">
-          <label style="display:block;font-size:14px;font-weight:700;color:#2a1620;margin-bottom:8px">الموعد المفضل</label>
-          <input type="date" name="preferred_date" class="form-input-focus" style="width:100%;padding:14px 16px;border-radius:14px;border:1px solid rgba(108,24,48,.18);background:#faf6f4;font-size:15px;color:#2a1620">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px" data-form-row>
+          <div>
+            <label style="display:block;font-size:14px;font-weight:700;color:#2a1620;margin-bottom:8px">تاريخ الموعد المفضل</label>
+            <input type="date" name="preferred_date" data-booking-date class="form-input-focus" style="width:100%;padding:14px 16px;border-radius:14px;border:1px solid rgba(108,24,48,.18);background:#faf6f4;font-size:15px;color:#2a1620">
+          </div>
+
+          <div>
+            <label style="display:block;font-size:14px;font-weight:700;color:#2a1620;margin-bottom:8px">وقت الموعد المفضل</label>
+            <input type="time" name="preferred_time" data-booking-time min="09:00" max="17:00" step="1800" class="form-input-focus" style="width:100%;padding:14px 16px;border-radius:14px;border:1px solid rgba(108,24,48,.18);background:#faf6f4;font-size:15px;color:#2a1620">
+            <div style="font-size:12.5px;color:#8a7580;margin-top:6px">مواعيد العيادة من 9 صباحاً حتى 5 مساءً</div>
+          </div>
         </div>
 
         <div style="margin-bottom:24px">
