@@ -766,6 +766,45 @@ header.site-header.scrolled.menu-open {
     white-space: pre;
 }
 
+/* ---- Social/video embeds (YouTube, TikTok, Instagram, Facebook) ---- */
+.blog-embed {
+    margin: 28px 0;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(108, 24, 48, .1);
+}
+
+.blog-embed iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+}
+
+.blog-embed-youtube {
+    aspect-ratio: 16 / 9;
+    background: #000;
+}
+
+.blog-embed-tiktok {
+    aspect-ratio: 9 / 16;
+    max-width: 345px;
+    margin-inline: auto;
+    background: #000;
+}
+
+.blog-embed-instagram {
+    aspect-ratio: 4 / 5;
+    max-width: 400px;
+    margin-inline: auto;
+    background: #fff;
+}
+
+.blog-embed-facebook {
+    min-height: 500px;
+    background: #fff;
+}
+
 .blog-article-content table {
     width: 100%;
     border-collapse: collapse;

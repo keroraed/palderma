@@ -99,6 +99,7 @@ class BlogPostResource extends Resource
                                     ->columnSpanFull(),
                                 Forms\Components\RichEditor::make('content')
                                     ->label('محتوى المقال')
+                                    ->helperText('لتضمين فيديو يوتيوب أو تيك توك أو بوست إنستغرام/فيسبوك: الصقي رابطه في سطر لوحده (فقرة منفصلة، بدون أي نص آخر معه) وسيتحول تلقائياً إلى مُشغّل فيديو مضمّن عند نشر المقال.')
                                     ->required(fn (Get $get): bool => $get('status') === BlogPost::STATUS_PUBLISHED)
                                     // BlogPost doesn't implement Filament's HasRichContent contract,
                                     // so this uses the RichEditor's simple/direct attachment path
